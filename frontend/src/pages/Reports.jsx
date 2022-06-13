@@ -56,6 +56,7 @@ const Reports = () => {
           >
             <h6 className="text-white ">
               <i className="ml-5 mr-3 my-4 fa-solid fa-flag"></i>Reports
+               <span className="repCount "> </span>
             </h6>
           </NavLink>
           <NavLink
