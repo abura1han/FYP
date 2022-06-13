@@ -5453,6 +5453,14 @@ body {
     
 }
 
+.repCount {
+    font-size: 9px;
+    background-color: #000000;
+    border-radius: 100%;
+    padding: 5px 7px 5px 6px;
+    vertical-align: middle;
+  }
+
 #Reports .sideNav {
     background: #202e5e;
 }
@@ -6150,8 +6158,146 @@ body {
 @media (max-width:575px){
 
 
-
+    
 }
 
 
 /********* BlogDetails PAGE ENDS *********/
+
+
+
+/********** VideoDetails PAGE STARTS  **********/
+
+#VideoDetails {
+    background-color: #f1f5fd;
+    
+}
+
+
+#VideoDetails  div > h1:first-child:after {
+    content: "";
+    position: absolute;
+    border-bottom: 1px solid #e72a1a;
+    width: 50px;
+    bottom: -10px;
+    left: calc(50% - 23px);
+}
+
+
+#VideoDetails  #moreVideos  {
+    overflow-x: scroll;
+    background: white;
+    border: 1px solid #e6e6e6;
+}
+
+#VideoDetails  #moreVideos a {
+    text-decoration: none;
+    color: black;
+    transition: 300ms;
+    border: 1px solid #e6e6e6;
+    
+}
+
+
+#VideoDetails  #moreVideos a:hover  {
+    background-color: #eaeaea;
+
+}
+
+#VideoDetails  #moreVideos .thumbnailBox {
+    width: 160px;
+}
+
+
+#VideoDetails  #moreVideos .thumbnailBox #imgBox {
+    height: 120px;
+    
+}
+
+#VideoDetails  #moreVideos .thumbnailBox #imgBox i{
+    position: absolute;
+    top: 35%;
+    left: 43%;
+    font-size: 32px;
+    color: white;
+    z-index: 100;
+    transition: 300ms;
+}
+
+#VideoDetails  #moreVideos a:hover .thumbnailBox #imgBox i{
+    color: red;
+    transform: scale(1.2);
+}
+
+#VideoDetails  #moreVideos .thumbnailBox #imgBox img {
+   filter: brightness(0.6);
+   transition: 300ms;
+}
+#VideoDetails  #moreVideos a:hover .thumbnailBox #imgBox img {
+   filter: brightness(1);
+}
+
+#VideoDetails  #moreVideos .thumbnailBox .thumbTitle {
+    background-color: white;
+    border-top: 5px solid #212f62;
+    transition: 300ms;
+
+}
+
+#VideoDetails  #moreVideos a:hover .thumbnailBox .thumbTitle {
+    background-color: #eaeaea;
+
+}
+
+#VideoDetails  #moreVideos .thumbnailBox .thumbTitle p{
+    font-size: 14px;
+
+}
+#VideoDetails  #moreVideos a:hover .thumbnailBox .thumbTitle p{
+    color: rgb(15, 89, 199);
+
+}
+
+
+
+
+
+
+
+
+/* MEDIA QUERIES */
+
+
+@media (min-width:992px) and (max-width: 1200px){
+
+
+}
+
+
+
+@media (min-width:768px) and (max-width: 991px){
+
+
+
+}
+
+
+
+
+@media (min-width:576px) and (max-width: 767px){
+
+
+
+}
+
+
+
+
+@media (max-width:575px){
+
+
+
+}
+
+
+/********* VideoDetails PAGE ENDS *********/
