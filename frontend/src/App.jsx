@@ -14,6 +14,8 @@ import UsedCarDetails from "./pages/UsedCarDetails";
 import NewCarDetails from "./pages/NewCarDetails";
 import NewCars from "./pages/NewCars";
 import Videos from "./pages/Videos";
+import VideoPost from "./pages/VideoPost"
+import VideoDetails from "./pages/VideoDetails"
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 
@@ -68,6 +70,12 @@ const App = () => {
                 </Route>
                 <Route path="/Videos">
                   <Videos />
+                </Route>
+                <Route path="/VideoPost">
+                  <VideoPost />
+                </Route>
+                <Route path="/VideoDetails">
+                  <VideoDetails />
                 </Route>
                 <Route path="/UsedCar/:carId">
                   <UsedCarDetails />
