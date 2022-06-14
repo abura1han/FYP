@@ -4,15 +4,19 @@ import "bootstrap/dist/js/bootstrap.bundle";
 import { PendingCarContext } from "../reducer/carContext";
 
 import { UserContext } from "../App";
+import CartContext from "../reducer/CartContext";
 
 const Header = () => {
   const { state, dispatch } = useContext(UserContext);
-  const { setPendingCarCount} = useContext(PendingCarContext)
+  const { setPendingCarCount } = useContext(PendingCarContext);
+  const { cart } = useContext(CartContext);
 
   useEffect(() => {
-    fetch('/pending-cars').then(res => res.json()).then(({ data }) => {
-      setPendingCarCount(data.length)
-    })
+    fetch("/pending-cars")
+      .then((res) => res.json())
+      .then(({ data }) => {
+        setPendingCarCount(data.length);
+      });
   }, [setPendingCarCount]);
 
   const RenderMenu = () => {
@@ -41,9 +45,9 @@ const Header = () => {
             </span>
             Logout
           </Link>
-          <Link to="/cart" >
-          <i class="fa-solid fa-cart-arrow-down ml-4 text-white position-relative"></i>
-          <span className="position-absolute cartNum"> 0</span>
+          <Link to="/cart">
+            <i class="fa-solid fa-cart-arrow-down ml-4 text-white position-relative"></i>
+            <span className="position-absolute cartNum"> {cart.length}</span>
           </Link>
         </div>
       );
@@ -282,9 +286,7 @@ const Header = () => {
                     Videos
                   </NavLink>
                 </li>
-                <li className="nav-item mr-3">
-                  
-                </li>
+                <li className="nav-item mr-3"></li>
                 <li className="nav-item mr-3">
                   <NavLink
                     activeClassName=" active"
