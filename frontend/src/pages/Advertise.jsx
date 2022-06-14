@@ -482,7 +482,9 @@ const Advertise = () => {
                       </select>
                     </div>
                     <div className="form-group mt-3">
-                      <label htmlFor="exampleFormControlSelect1">Car Category</label>
+                      <label htmlFor="exampleFormControlSelect1">
+                        Car Category
+                      </label>
                       <select
                         className="form-control"
                         id="exampleFormControlSelect1"
@@ -502,12 +504,15 @@ const Advertise = () => {
                         <option value={"Sports"}>Sports</option>
                         <option value={"Convertibles"}>Convertibles</option>
                         <option value={"Vans Cars"}>Vans Cars</option>
-                        <option value={"Certified Preown"}>Certified Preown</option>
-                        
+                        <option value={"Certified Preown"}>
+                          Certified Preown
+                        </option>
                       </select>
                     </div>
                     <div className="form-group mt-3">
-                      <label htmlFor="exampleFormControlSelect1">Engine CC</label>
+                      <label htmlFor="exampleFormControlSelect1">
+                        Engine CC
+                      </label>
                       <select
                         className="form-control"
                         id="exampleFormControlSelect1"
@@ -525,7 +530,9 @@ const Advertise = () => {
                       </select>
                     </div>
                     <div className="form-group mt-3">
-                      <label htmlFor="exampleFormControlSelect1">Transmission</label>
+                      <label htmlFor="exampleFormControlSelect1">
+                        Transmission
+                      </label>
                       <select
                         className="form-control"
                         id="exampleFormControlSelect1"
@@ -570,7 +577,6 @@ const Advertise = () => {
                         <option selected>Select Owner</option>
                         <option value={"First Owner"}>First Owner</option>
                         <option value={"Second Owner"}>Second Owner</option>
-                        
                       </select>
                     </div>
                     <div className="form-group mt-3">
@@ -681,7 +687,9 @@ const Advertise = () => {
                       </select>
                     </div>
                     <div className="form-group mt-3">
-                      <label htmlFor="exampleFormControlSelect1">Province</label>
+                      <label htmlFor="exampleFormControlSelect1">
+                        Province
+                      </label>
                       <select
                         className="form-control"
                         id="exampleFormControlSelect1"
@@ -695,7 +703,9 @@ const Advertise = () => {
                         <option value={"Balochistan"}>Balochistan</option>
                         <option value={"KPK"}>KPK</option>
                         <option value={"Azad Kashmir"}>Azad Kashmir</option>
-                        <option value={"Federally Administered Tribal Areas"}>Federally Administered Tribal Areas</option>
+                        <option value={"Federally Administered Tribal Areas"}>
+                          Federally Administered Tribal Areas
+                        </option>
                       </select>
                     </div>
                     <div className="form-group mt-3">

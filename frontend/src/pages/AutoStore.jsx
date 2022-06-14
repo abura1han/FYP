@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Form from "../components/Form";
+import CartContext from "../reducer/CartContext";
 
 const AutoStore = () => {
+  const { cart, setCart } = useContext(CartContext);
   const [carPartsList, setCarPartsList] = useState([]);
 
   // Fetch all carparts
   useEffect(() => {
-    fetch(`/car-parts`)
+    fetch(`/car-parts`, {})
       .then((res) => res.json())
       .then(({ success, data }) => {
         setCarPartsList(data);
       });
   }, []);
+
+  console.log(cart);
 
   return (
     <div id="autostore">
@@ -42,20 +46,18 @@ const AutoStore = () => {
                       Sale Products
                     </Link>
                   </li>
-                  
+
                   <li className="mb-3 position-relative">
                     <Link to="#" className="main-menu d-block" data-depth={0}>
                       <i className="fas fa-angle-right" />
                       Car Accessories
                     </Link>
-                    
                   </li>
                   <li className="mb-3 position-relative">
                     <Link to="#" className="main-menu d-block" data-depth={0}>
                       <i className="fas fa-angle-right" />
                       Car Care
                     </Link>
-                   
                   </li>
                   <li
                     className="mb-3 position-relative"
@@ -66,7 +68,6 @@ const AutoStore = () => {
                       <i className="fas fa-angle-right" />
                       Oil &amp; Additives
                     </Link>
-                   
                   </li>
                   <li
                     className="mb-3 position-relative"
@@ -77,7 +78,6 @@ const AutoStore = () => {
                       <i className="fas fa-angle-right" />
                       Car Care Pro
                     </Link>
-                  
                   </li>
                   <li
                     className="mb-3 position-relative"
@@ -88,7 +88,6 @@ const AutoStore = () => {
                       <i className="fas fa-angle-right" />
                       Car Filter
                     </Link>
-                 
                   </li>
                   <li
                     className="mb-3 position-relative"
@@ -99,7 +98,6 @@ const AutoStore = () => {
                       <i className="fas fa-angle-right" />
                       Car Electronics
                     </Link>
-                  
                   </li>
                   <li
                     className="mb-3 position-relative"
@@ -110,7 +108,6 @@ const AutoStore = () => {
                       <i className="fas fa-angle-right" />
                       LED Lights
                     </Link>
-                   
                   </li>
                   <li
                     className="mb-3 position-relative"
@@ -121,7 +118,6 @@ const AutoStore = () => {
                       <i className="fas fa-angle-right" />
                       Car Parts
                     </Link>
-                  
                   </li>
                   <li
                     className="mb-3 position-relative"
@@ -132,7 +128,6 @@ const AutoStore = () => {
                       <i className="fas fa-angle-right" />
                       4×4 SUV items
                     </Link>
-                 
                   </li>
                   <li
                     className="mb-3 position-relative"
@@ -153,14 +148,12 @@ const AutoStore = () => {
                       <i className="fas fa-angle-right" />
                       Tools
                     </Link>
-               
                   </li>
                   <li className="mb-3 position-relative">
                     <Link to="#" data-depth={0} className="main-menu d-block">
                       <i className="fas fa-angle-right" />
                       Batteries
                     </Link>
-                   
                   </li>
                 </div>
               </div>
@@ -175,7 +168,7 @@ const AutoStore = () => {
                 </div>
                 <div className="cotainer">
                   <div className="partsbox mx-0 row">
-                    {carPartsList.map(({ title, price, images }, i) => (
+                    {carPartsList.map(({ _id, title, price, images }, i) => (
                       <div
                         className="col-sm-4 col-md-3 py-4 mx-5 mx-sm-0"
                         key={i}
@@ -200,12 +193,30 @@ const AutoStore = () => {
                             </Link>
                             <p className="card-text " />
                             <div className="text-center ">
-                              <Link to="#" className="mr-2">
-                                <i className="fas fa-shopping-cart" />
-                              </Link>
-                              <Link to="#" className="">
+                              <button
+                                onClick={() =>
+                                  cart.find((c) => c._id === _id)
+                                    ? setCart((prev) =>
+                                        prev.filter((e) => e._id !== _id)
+                                      )
+                                    : setCart((prev) => [
+                                        ...prev,
+                                        { _id, title, price, images },
+                                      ])
+                                }
+                                className="mr-2"
+                              >
+                                <i
+                                  className={`fas fa ${
+                                    cart.find((c) => c._id === _id)
+                                      ? "fa-times"
+                                      : "fa-shopping-cart"
+                                  }`}
+                                />
+                              </button>
+                              <button className="">
                                 <i className="fas fa-eye" />
-                              </Link>
+                              </button>
                             </div>
                           </div>
                         </div>
