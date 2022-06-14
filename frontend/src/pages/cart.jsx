@@ -215,6 +215,7 @@ const Cart = () => {
                 {/* total money should be calculated */}
               </tr>
             </table>
+          <span className=" offset-9 bg-dark text-white rounded p-2">Empty cart</span>
           </div>
         </div>
       </div>
