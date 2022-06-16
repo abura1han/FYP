@@ -148,7 +148,7 @@ const App = () => {
                     <Route path="/AutoStore">
                       <AutoStore />
                     </Route>
-                    <Route path="/CarPartDetails">
+                    <Route path="/CarPartDetail">
                       <CarPartDetail />
                     </Route>
                     <Route path="/Cart">
