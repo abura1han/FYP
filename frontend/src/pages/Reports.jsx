@@ -258,165 +258,199 @@ const Reports = () => {
                 </div>
               </>
             ))}
-            <div
-              class="tab-pane fade"
-              id="UsedCar"
-              role="tabpanel"
-              aria-labelledby="UsedCar-tab"
-            >
-              <div className="container">
-                <div className="row pt-5">
-                  <div className="col-9">
-                    <div className=" ">
-                      <div className="row justify-content-center">
-                        <Carousel infiniteLoop>
-                          <div>
-                            <img
-                              src="./images/Kia-Sportage.png"
-                              alt="asdsasda"
-                            />
-
-                            <p className="legend">Toyota Corrola</p>
-                          </div>
-                          <div>
-                            <img src="./images/dummy-car.png" alt="asdsasda" />
-
-                            <p className="legend">Toyota Corrola</p>
-                          </div>
-                          <div>
-                            <img src="./images/pink-aqua.png" alt="asdsasda" />
-
-                            <p className="legend">Toyota Corrola</p>
-                          </div>
-                          <div>
-                            <img
-                              src="./images/Suzukia-specia.png"
-                              alt="asdsasda"
-                            />
-
-                            <p className="legend">Toyota Corrola</p>
-                          </div>
-                          <div>
-                            <img src="./images/pink-aqua.png" alt="asdsasda" />
-
-                            <p className="legend">Toyota Corrola</p>
-                          </div>
-                          <div>
-                            <img
-                              src="./images/Suzukia-specia.png"
-                              alt="asdsasda"
-                            />
-
-                            <p className="legend">Toyota Corrola</p>
-                          </div>
-                          <div>
-                            <img
-                              src="./images/Suzukia-specia.png"
-                              alt="asdsasda"
-                            />
-
-                            <p className="legend">Toyota Corrola</p>
-                          </div>
-                          <div>
-                            <img
-                              src="./images/Suzukia-specia.png"
-                              alt="asdsasda"
-                            />
-
-                            <p className="legend">Toyota Corrola</p>
-                          </div>
-                        </Carousel>
-                      </div>
+            {usedCarList?.map((e) => (
+              <>
+                <div
+                  class="tab-pane fade"
+                  id="UsedCar"
+                  role="tabpanel"
+                  aria-labelledby="UsedCar-tab"
+                >
+                  <div className="container">
+                    <div className="row justify-content-center my-3">
+                      <h5 className="text-success mr-5">
+                        {" "}
+                        <i className=" align-middle fa-solid fa-check"></i>
+                        Ignore
+                      </h5>
+                      <h5
+                        className="text-danger"
+                        onClick={(_) => handleDeleteCar(e._id)}
+                      >
+                        {" "}
+                        <i className=" align-middle fa-solid fa-xmark"></i>
+                        Delete
+                      </h5>
                     </div>
+                    <div className="row pt-5">
+                      <div className="col-9">
+                        <div className=" ">
+                          <div className="row justify-content-center">
+                            <Carousel infiniteLoop>
+                              <div>
+                                <img
+                                  src="./images/Kia-Sportage.png"
+                                  alt="asdsasda"
+                                />
 
-                    <div className="CarDetailCard col-6 offset-3 pb-1 ">
-                      <h2 className="mb-0">2016 Toyota Carolla XLI 1.6</h2>
-                      <i className="fas fa-map-marker-alt mr-2  "></i>
-                      <Link to="#" className="city">
-                        Lahore
-                      </Link>
-                      <h4 className=" mt-3 mb-5">PKR 25 lacs</h4>
-                      <div className="numBox col-5">
-                        <i className=" fas fa-phone-alt mr-3"></i>
-                        {/*  <span>View Number</span>   if user is Not logged in, dont show number */}
-                        <span>03468765433</span>{" "}
-                        {/* if user is logged in, show him number */}
-                      </div>
+                                <p className="legend">Toyota Corrola</p>
+                              </div>
+                              <div>
+                                <img
+                                  src="./images/dummy-car.png"
+                                  alt="asdsasda"
+                                />
 
-                      <div className="col-4 offset-9">
-                        <i className="fas fa-flag mr-2"></i>
-                        <Link to="#">Report Ad</Link>
-                      </div>
-                    </div>
+                                <p className="legend">Toyota Corrola</p>
+                              </div>
+                              <div>
+                                <img
+                                  src="./images/pink-aqua.png"
+                                  alt="asdsasda"
+                                />
 
-                    <div className="CarGeneralCard col-6 offset-3 mt-2 ">
-                      <h4 className="font-weight-bold mb-3">General Details</h4>
-                      <div className="row">
-                        <div className="col-6 details position-relative mb-1">
-                          <p>
-                            {" "}
-                            <i className="mr-3 fa fa-calendar-alt"></i> 2019
-                          </p>
-                        </div>
-                        <div className="col-6 details position-relative mb-1">
-                          <p>
-                            {" "}
-                            <i className="mr-3 fa fa-road"></i> 40,000 Kms
-                          </p>
-                        </div>
-                        <div className="col-6 details position-relative mb-1">
-                          <p>
-                            {" "}
-                            <i className="mr-3 fa fa-user-alt"></i> First Owner
-                          </p>
-                        </div>
-                        <div className="col-6 details position-relative mb-1">
-                          <p>
-                            {" "}
-                            <i className="mr-3 fas fa-cog"></i> Automatic
-                          </p>
-                        </div>
-                        <div className="col-6 details position-relative mb-1">
-                          <p>
-                            {" "}
-                            <i className="mr-3 fas fa-gas-pump"></i> Petrol
-                          </p>
-                        </div>
-                        <div className="col-6 details position-relative mb-1">
-                          <p>
-                            {" "}
-                            <i className="mr-3 fa-solid fa-fill-drip"></i> Gray
-                          </p>
-                        </div>
-                        <div className="col-6 details position-relative mb-1">
-                          <p>
-                            {" "}
-                            <i className="mr-3 fas fa-closed-captioning"></i>{" "}
-                            1200cc
-                          </p>
-                        </div>
-                        <div className="col-6 details position-relative mb-1">
-                          <p>
-                            {" "}
-                            <i class="mr-3 fa-solid fa-car-side"></i> SUV
-                          </p>
-                        </div>
-                      </div>
+                                <p className="legend">Toyota Corrola</p>
+                              </div>
+                              <div>
+                                <img
+                                  src="./images/Suzukia-specia.png"
+                                  alt="asdsasda"
+                                />
 
-                      <div className="mt-3 remarks">
-                        <h4 className="font-weight-bold">Seller's Remarks</h4>{" "}
-                        {/*if seller wants to write comment or say something  */}
-                        <p className="mb-0">-2 times accidented </p>
-                        <p className="mb-0">-staring is good</p>
-                        <p className="mb-0">-mirrors are fine</p>
-                        <p className="mb-0">-good car</p>
-                        <p className="mb-0">-Contact me fast omg</p>
+                                <p className="legend">Toyota Corrola</p>
+                              </div>
+                              <div>
+                                <img
+                                  src="./images/pink-aqua.png"
+                                  alt="asdsasda"
+                                />
+
+                                <p className="legend">Toyota Corrola</p>
+                              </div>
+                              <div>
+                                <img
+                                  src="./images/Suzukia-specia.png"
+                                  alt="asdsasda"
+                                />
+
+                                <p className="legend">Toyota Corrola</p>
+                              </div>
+                              <div>
+                                <img
+                                  src="./images/Suzukia-specia.png"
+                                  alt="asdsasda"
+                                />
+
+                                <p className="legend">Toyota Corrola</p>
+                              </div>
+                              <div>
+                                <img
+                                  src="./images/Suzukia-specia.png"
+                                  alt="asdsasda"
+                                />
+
+                                <p className="legend">Toyota Corrola</p>
+                              </div>
+                            </Carousel>
+                          </div>
+                        </div>
+
+                        <div className="CarDetailCard col-6 offset-3 pb-1 ">
+                          <h2 className="mb-0">2016 Toyota Carolla XLI 1.6</h2>
+                          <i className="fas fa-map-marker-alt mr-2  "></i>
+                          <Link to="#" className="city">
+                            Lahore
+                          </Link>
+                          <h4 className=" mt-3 mb-5">PKR 25 lacs</h4>
+                          <div className="numBox col-5">
+                            <i className=" fas fa-phone-alt mr-3"></i>
+                            {/*  <span>View Number</span>   if user is Not logged in, dont show number */}
+                            <span>03468765433</span>{" "}
+                            {/* if user is logged in, show him number */}
+                          </div>
+
+                          <div className="col-4 offset-9">
+                            <i className="fas fa-flag mr-2"></i>
+                            <Link to="#">Report Ad</Link>
+                          </div>
+                        </div>
+
+                        <div className="CarGeneralCard col-6 offset-3 mt-2 ">
+                          <h4 className="font-weight-bold mb-3">
+                            General Details
+                          </h4>
+                          <div className="row">
+                            <div className="col-6 details position-relative mb-1">
+                              <p>
+                                {" "}
+                                <i className="mr-3 fa fa-calendar-alt"></i> 2019
+                              </p>
+                            </div>
+                            <div className="col-6 details position-relative mb-1">
+                              <p>
+                                {" "}
+                                <i className="mr-3 fa fa-road"></i> 40,000 Kms
+                              </p>
+                            </div>
+                            <div className="col-6 details position-relative mb-1">
+                              <p>
+                                {" "}
+                                <i className="mr-3 fa fa-user-alt"></i> First
+                                Owner
+                              </p>
+                            </div>
+                            <div className="col-6 details position-relative mb-1">
+                              <p>
+                                {" "}
+                                <i className="mr-3 fas fa-cog"></i> Automatic
+                              </p>
+                            </div>
+                            <div className="col-6 details position-relative mb-1">
+                              <p>
+                                {" "}
+                                <i className="mr-3 fas fa-gas-pump"></i> Petrol
+                              </p>
+                            </div>
+                            <div className="col-6 details position-relative mb-1">
+                              <p>
+                                {" "}
+                                <i className="mr-3 fa-solid fa-fill-drip"></i>{" "}
+                                Gray
+                              </p>
+                            </div>
+                            <div className="col-6 details position-relative mb-1">
+                              <p>
+                                {" "}
+                                <i className="mr-3 fas fa-closed-captioning"></i>{" "}
+                                1200cc
+                              </p>
+                            </div>
+                            <div className="col-6 details position-relative mb-1">
+                              <p>
+                                {" "}
+                                <i class="mr-3 fa-solid fa-car-side"></i> SUV
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="mt-3 remarks">
+                            <h4 className="font-weight-bold">
+                              Seller's Remarks
+                            </h4>{" "}
+                            {/*if seller wants to write comment or say something  */}
+                            <p className="mb-0">-2 times accidented </p>
+                            <p className="mb-0">-staring is good</p>
+                            <p className="mb-0">-mirrors are fine</p>
+                            <p className="mb-0">-good car</p>
+                            <p className="mb-0">-Contact me fast omg</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </>
+            ))}
           </div>
         </div>
       </div>

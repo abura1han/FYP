@@ -135,10 +135,10 @@ const UsedCarDetails = () => {
                 {/* if user is logged in, show him number */}
               </div>
 
-              <div className="col-3 offset-9" onCanPlay={handleReportAd}>
+              <button className="col-3 offset-9" onClick={handleReportAd}>
                 <i className="fas fa-flag mr-2"></i>
                 <Link to="#">Report Ad</Link>
-              </div>
+              </button>
             </div>
 
             <div className="CarGeneralCard col-6 offset-3 mt-2 ">
