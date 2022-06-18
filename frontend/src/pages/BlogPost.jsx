@@ -1,58 +1,83 @@
-import React, { useContext, useEffect, useState } from "react";
-import {NavLink, Link} from "react-router-dom";
-import OwlCarousel from 'react-owl-carousel';
-import 'owl.carousel/dist/assets/owl.carousel.css';
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
+import "owl.carousel/dist/assets/owl.carousel.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import 'owl.carousel/dist/assets/owl.theme.default.css';
-import { NewCarContext, PendingCarContext, UsedCarContext } from "../reducer/carContext";
-
+import "owl.carousel/dist/assets/owl.theme.default.css";
+import { PendingCarContext } from "../reducer/carContext";
 
 const BlogPost = () => {
-    const { pendingCarCount} = useContext(PendingCarContext)
+  const { pendingCarCount } = useContext(PendingCarContext);
+  const [title, seTtitle] = useState("");
+  const [flareTag, setFlareTag] = useState("");
+  const [info, setInfo] = useState("");
+  const [content, setContent] = useState("");
+  const [images, setImages] = useState([]);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
 
+  const imageElem = useRef();
 
-    const owlone = {
-        loop: true,
-        margin: 20,
-        padding: 20,
-        nav: true,
-        autoplay: false,
-        autoplayTimeout: 4000,
-        dots: false,
-        slideBy: 1,
-        responsiveClass: true,
-        responsive: {
-          0: {
-            items: 2,
-            nav: true
-          },
-          576: {
-            items: 4,
-            nav: true
-          },
-          768: {
-            items: 5,
-            nav: true
-          },
-          992: {
-            items: 6,
-            nav: true,
-            loop: true
-          },
-          1200: {
-            items: 6,
-            nav: true,
-            loop: true
-          }
-        },
-      };
-    
+  useEffect(() => {
+    imageElem.current.addEventListener("change", (e) => {
+      const formData = new FormData();
+      for (let i of imageElem.current.files) {
+        formData.append("file-upload", i);
+      }
+      console.log(formData.get("file-upload"));
+      setImages(formData);
+    });
+  }, []);
 
+  const handleSubmit = () => {
+    fetch("/file-upload", {
+      method: "POST",
+      body: images,
+    })
+      .then((res) => res.json())
+      .then(({ success, error, data }) => {
+        if (!success) {
+          alert(`${error}`);
+          return;
+        }
 
+        fetch("/blog", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            flareTag,
+            info,
+            content,
+            images: data,
+            name,
+            phone,
+            title,
+            email,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.success) throw new Error(data?.error);
+            alert("Blog added successfully");
+            setInfo("");
+            setContent("");
+            setName("");
+            setFlareTag("");
+            setImages([]);
+            setPhone("");
+            setEmail("");
+            imageElem.current = null;
+          })
+          .catch((err) => alert(err.message));
+      });
+  };
 
   return (
     <div id="AdvertiseParts">
-        <div className="row">
+      <div className="row">
         <div className="col-2 sideNav">
           <NavLink
             activeClassName=" active"
@@ -89,7 +114,7 @@ const BlogPost = () => {
             <h6 className="text-white ">
               <i className="ml-5 mr-3 my-4 fa-solid fa-bell"></i>Pending
             </h6>
-            <span className="pendCount "> { pendingCarCount} </span>
+            <span className="pendCount "> {pendingCarCount} </span>
           </NavLink>
           <NavLink
             activeClassName=" active"
@@ -116,7 +141,7 @@ const BlogPost = () => {
             to="/Blogpost"
           >
             <h6 className="text-white ">
-          <i class="ml-5 mr-3 my-4 fa-brands fa-blogger"></i>Blog Post
+              <i class="ml-5 mr-3 my-4 fa-brands fa-blogger"></i>Blog Post
             </h6>
           </NavLink>
           <NavLink
@@ -125,56 +150,59 @@ const BlogPost = () => {
             to="/VideoPost"
           >
             <h6 className="text-white ">
-          <i class="ml-5 mr-2 my-4  fa-solid fa-play"></i>Video Post
+              <i class="ml-5 mr-2 my-4  fa-solid fa-play"></i>Video Post
             </h6>
           </NavLink>
         </div>
         <div className="col-10 Content">
-        <div id="advertisement">
-       
-  {/* HEADING SECTION  */}
-  <div id="headingSection">
-    <div className="container pb-5">
-      <div className="row flex-column align-items-center class py-5">
-        <h3 className="mb-0 position-relative">
-          Share your insights
-        </h3>
-      </div>
-    </div>
-  </div>
-  {/* HEADING SECTION ENDS */}
-  {/* CAR INFO SECTION */}
-  <div id="carInfosection">
-    <div className="container">
-      <div id="carinfobox">
-        <div id="brandselect" className="py-5">
-          <div className="container">
-            <div id="carinfoform" className="pb-5">
-              <h1 className="text-center py-5  position-relative">
-                Blog Details
-              </h1>
-              <form
-                action="somefile.php"
-                method="post"
-                name="myForm"
-                className="row flex-column col-12 col-sm-8 col-md-8 col-lg-6 offset-lg-3 offset-md-2 offset-sm-2"
-              >
-                  <div className="form-group mt-2">
-                  <label htmlFor="Title">Title </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="Title"
-                    
-                  />
+          <div id="advertisement">
+            {/* HEADING SECTION  */}
+            <div id="headingSection">
+              <div className="container pb-5">
+                <div className="row flex-column align-items-center class py-5">
+                  <h3 className="mb-0 position-relative">
+                    Share your insights
+                  </h3>
                 </div>
-                <div className="form-group mt-3">
+              </div>
+            </div>
+            {/* HEADING SECTION ENDS */}
+            {/* CAR INFO SECTION */}
+            <div id="carInfosection">
+              <div className="container">
+                <div id="carinfobox">
+                  <div id="brandselect" className="py-5">
+                    <div className="container">
+                      <div id="carinfoform" className="pb-5">
+                        <h1 className="text-center py-5  position-relative">
+                          Blog Details
+                        </h1>
+                        <form
+                          onSubmit={(e) => e.preventDefault()}
+                          action="somefile.php"
+                          method="post"
+                          name="myForm"
+                          className="row flex-column col-12 col-sm-8 col-md-8 col-lg-6 offset-lg-3 offset-md-2 offset-sm-2"
+                        >
+                          <div className="form-group mt-2">
+                            <label htmlFor="Title">Title </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="Title"
+                              onChange={(e) => seTtitle(e.target.value)}
+                              value={title}
+                            />
+                          </div>
+                          <div className="form-group mt-3">
                             <label htmlFor="Flare">Flare Tag</label>
                             <select
                               type="text"
                               className="form-control"
                               id="Flare"
-                              >
+                              onChange={(e) => setFlareTag(e.target.value)}
+                              value={flareTag}
+                            >
                               <option selected>Select Tag</option>
                               <option>Petrol</option>
                               <option>Price</option>
@@ -188,113 +216,122 @@ const BlogPost = () => {
                             </select>
                           </div>
 
-                <div className="form-group mt-3">
-                  <label htmlFor="partDesc">
-                    Brief Info
-                  </label>
-                  <textarea
-                    className="form-control"
-                    minlength="50" maxlength="190"
-                    id="partDesc"
-                    rows={3}
-                    placeholder="Briefly write topic"
-                    defaultValue={""}
-                  />
-                </div>
+                          <div className="form-group mt-3">
+                            <label htmlFor="partDesc">Brief Info</label>
+                            <textarea
+                              className="form-control"
+                              minlength="50"
+                              maxlength="190"
+                              id="partDesc"
+                              rows={3}
+                              placeholder="Briefly write topic"
+                              onChange={(e) => setInfo(e.target.value)}
+                              value={info}
+                            />
+                          </div>
 
-                <div className="form-group mt-3">
-                  <label htmlFor="partDesc">
-                    Write Post
-                  </label>
-                  <textarea
-                    className="form-control"
-                    id="partDesc"
-                    rows={8}
-                    placeholder="Write your full post"
-                    defaultValue={""}
-                  />
-                </div>
+                          <div className="form-group mt-3">
+                            <label htmlFor="partDesc">Write Post</label>
+                            <textarea
+                              className="form-control"
+                              id="partDesc"
+                              rows={8}
+                              placeholder="Write your full post"
+                              onChange={(e) => setContent(e.target.value)}
+                              value={content}
+                            />
+                          </div>
 
-                <div className="form-group mt-3">
-                  <label htmlFor="exampleFormControlFile1">Insert Cover Photo</label>
-                  <input
-                    type="file"
-                    className="form-control-file"
-                    id="exampleFormControlFile1"
-                    multiple=""
-                  />
+                          <div className="form-group mt-3">
+                            <label htmlFor="exampleFormControlFile1">
+                              Insert Cover Photo
+                            </label>
+                            <input
+                              type="file"
+                              className="form-control-file"
+                              id="exampleFormControlFile1"
+                              multiple=""
+                              ref={imageElem}
+                            />
+                          </div>
+                        </form>
+                      </div>
+                      <div id="PersonalInfo" className="my-5">
+                        <h1 className="text-center py-5 position-relative">
+                          Personal Details
+                        </h1>
+                        <form
+                          action="somefile.php"
+                          method="post"
+                          name="myForm"
+                          className="row flex-column py-5 col-12 col-sm-8  col-md-8  col-lg-6 offset-lg-3 offset-md-2 offset-sm-2"
+                        >
+                          <div className=" form-group">
+                            <label htmlFor="Fname">Seller Full Name</label>
+                            <input
+                              type="text"
+                              id="Fname"
+                              className="form-control position-relative"
+                              name="firstname"
+                              placeholder="Rahul"
+                              required=""
+                              onChange={(e) => setName(e.target.value)}
+                              value={name}
+                            />
+                          </div>
+                          <div className="form-group  mt-4">
+                            <label htmlFor="phone">Phone Number</label>
+                            <input
+                              type="tel"
+                              className="form-control"
+                              id="phone"
+                              name="phonenumber"
+                              placeholder="03xxxxxxxxx"
+                              required=""
+                              onChange={(e) => setPhone(e.target.value)}
+                              value={phone}
+                            />
+                          </div>
+                          <div className="form-group  mt-4">
+                            <label htmlFor="exampleInputEmail1">Email</label>
+                            <input
+                              type="email"
+                              className="form-control"
+                              name="email"
+                              id="exampleInputEmail1"
+                              aria-describedby="emailHelp"
+                              placeholder="Rahul_7872@yahoo.com"
+                              required=""
+                              onChange={(e) => setEmail(e.target.value)}
+                              value={email}
+                            />
+                            <small
+                              id="emailHelp"
+                              className="form-text text-muted"
+                            >
+                              We'll never share your email with anyone else.
+                            </small>
+                          </div>
+                        </form>
+                      </div>
+                      <div className="submitBtn text-center mt-4">
+                        <button
+                          type="submit"
+                          form="myForm"
+                          className="btn d-block col-sm-6 col-md-4 offset-sm-3 offset-md-4"
+                          onClick={handleSubmit}
+                        >
+                          Submit &amp; Continue
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </form>
-            </div>
-            <div id="PersonalInfo" className="my-5">
-              <h1 className="text-center py-5 position-relative">
-                Personal Details
-              </h1>
-              <form
-                action="somefile.php"
-                method="post"
-                name="myForm"
-                className="row flex-column py-5 col-12 col-sm-8  col-md-8  col-lg-6 offset-lg-3 offset-md-2 offset-sm-2"
-              >
-                <div className=" form-group">
-                  <label htmlFor="Fname">Seller Full Name</label>
-                  <input
-                    type="text"
-                    id="Fname"
-                    className="form-control position-relative"
-                    name="firstname"
-                    placeholder="Rahul"
-                    required=""
-                  />
-                </div>
-                <div className="form-group  mt-4">
-                  <label htmlFor="phone">Phone Number</label>
-                  <input
-                    type="tel"
-                    className="form-control"
-                    id="phone"
-                    name="phonenumber"
-                    placeholder="03xxxxxxxxx"
-                    required=""
-                  />
-                </div>
-                <div className="form-group  mt-4">
-                  <label htmlFor="exampleInputEmail1">Email</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    name="email"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Rahul_7872@yahoo.com"
-                    required=""
-                  />
-                  <small id="emailHelp" className="form-text text-muted">
-                    We'll never share your email with anyone else.
-                  </small>
-                </div>
-              </form>
-            </div>
-            <div className="submitBtn text-center mt-4">
-              <button
-                type="submit"
-                form="myForm"
-                className="btn d-block col-sm-6 col-md-4 offset-sm-3 offset-md-4"
-              >
-                Submit &amp; Continue
-              </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-
-
-
-        </div>
-        </div>
-        </div>
     </div>
   );
 };

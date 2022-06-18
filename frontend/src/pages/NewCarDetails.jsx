@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { DiscussionEmbed } from "disqus-react";
 
 const NewCarDetails = () => {
   const [carDetails, setCarDetails] = useState({});
 
+  const carId = window.location.pathname.split("/")[2];
+
+  const disqusShortname = "http-loalhost";
+  const disqusConfig = {
+    url: `http://localhost:3000/NewCar/${carId}`,
+    identifier: carId,
+    title: "Comments",
+  };
   /**
    * Get car details by car id form window.location.pathname
    */
   useEffect(() => {
-    const carId = window.location.pathname.split("/")[2];
-
     fetch(`/car/${carId}`)
       .then((res) => res.json())
       .then(({ data }) => {
         console.log(data);
         setCarDetails(data);
       });
-  }, []);
+  }, [carId]);
 
   return (
     <div id="NewCarDetails">
@@ -88,12 +95,13 @@ const NewCarDetails = () => {
             <div className="features mt-4">
               <p>
                 {" "}
-                <i className="mr-3  car-icons fas fa-cog"></i> { carDetails?.transmission}
+                <i className="mr-3  car-icons fas fa-cog"></i>{" "}
+                {carDetails?.transmission}
               </p>
               <p>
                 {" "}
                 <i className="mr-3  car-icons fas fa-closed-captioning"></i>{" "}
-                { carDetails?.engineCC}cc
+                {carDetails?.engineCC}cc
               </p>
               <p>
                 <i class="mr-3 car-icons  fa-solid fa-gauge-high"></i>{" "}
@@ -101,13 +109,20 @@ const NewCarDetails = () => {
               </p>
               <p>
                 {" "}
-                <i className="mr-3  car-icons fas fa-gas-pump"></i> { carDetails?.fuel}
+                <i className="mr-3  car-icons fas fa-gas-pump"></i>{" "}
+                {carDetails?.fuel}
               </p>
             </div>
             <div className="col-6 offset-9">
-                <i className="fas fa-flag mr-2"></i>
-                <Link to="#">Report Ad</Link>
-              </div>
+              <i className="fas fa-flag mr-2"></i>
+              <Link to="#">Report Ad</Link>
+            </div>
+            <div>
+              <DiscussionEmbed
+                shortname={disqusShortname}
+                config={disqusConfig}
+              />
+            </div>
           </div>
         </div>
       </div>

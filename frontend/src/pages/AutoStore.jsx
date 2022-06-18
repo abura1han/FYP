@@ -174,7 +174,7 @@ const AutoStore = () => {
                         key={i}
                       >
                         <div className="card position-relative">
-                          <Link to="#">
+                          <Link to={`/CarPartDetails/${_id}`}>
                             <img
                               className="card-img-top"
                               src={images[0]}
@@ -183,7 +183,7 @@ const AutoStore = () => {
                             />
                           </Link>
                           <div className="card-body">
-                            <Link to="#">
+                            <Link to={`/CarPartDetails/${_id}`}>
                               <h5 className="card-title text-center mb-1">
                                 {title}
                               </h5>

@@ -3,7 +3,7 @@ const Authenticate = require("../middleware/authenticate");
 const Video = require("../model/Video");
 
 // Get vidoes
-router.get("/videos", Authenticate, async (req, res) => {
+router.get("/videos", async (req, res) => {
   try {
     const videos = await Video.find({});
     res.status(200).json({ success: true, statusCode: 200, data: videos });
@@ -15,9 +15,9 @@ router.get("/videos", Authenticate, async (req, res) => {
 });
 
 // Get video by id
-router.get("/videos/:id", Authenticate, async (req, res) => {
+router.get("/videos/:id", async (req, res) => {
   try {
-    const video = Video.findById(req.params.id);
+    const video = await Video.findById(req.params.id);
     res.status(200).json({ success: true, statusCode: 200, data: video });
   } catch (error) {
     res

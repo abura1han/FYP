@@ -47,22 +47,30 @@ class Footer extends React.Component {
                   <h5 className="text-white pb-5">Cars by Province</h5>
                   <ul className="px-0 text-secondary">
                     <li className="list-unstyled text-decoration-none mb-2">
-                      <Link to="#">Cars in Punjab</Link>
+                      <Link to="/search?registeredIn=Punjab">
+                        Cars in Punjab
+                      </Link>
                     </li>
                     <li className="list-unstyled text-decoration-none mb-2">
-                      <Link to="#">Cars in Sindh</Link>
+                      <Link to="/search?registeredIn=Sindh">Cars in Sindh</Link>
                     </li>
                     <li className="list-unstyled text-decoration-none mb-2">
-                      <Link to="#">Cars in KPK</Link>
+                      <Link to="/search?registeredIn=KPK">Cars in KPK</Link>
                     </li>
                     <li className="list-unstyled text-decoration-none mb-2">
-                      <Link to="#">Cars in Balochistan</Link>
+                      <Link to="/search?registeredIn=Balochistan">
+                        Cars in Balochistan
+                      </Link>
                     </li>
                     <li className="list-unstyled text-decoration-none mb-2">
-                      <Link to="#">Azad Kashmir</Link>
+                      <Link to="/search?registeredIn=Kashmir">
+                        Azad Kashmir
+                      </Link>
                     </li>
                     <li className="list-unstyled text-decoration-none mb-2">
-                      <Link to="#">Federally Administered Tribal Areas</Link>
+                      <Link to="/search?registeredIn= Federally Administered Tribal Areas">
+                        Federally Administered Tribal Areas
+                      </Link>
                     </li>
                   </ul>
                 </section>

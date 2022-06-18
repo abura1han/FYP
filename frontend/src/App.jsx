@@ -90,7 +90,7 @@ const App = () => {
                     <Route path="/VideoPost">
                       <VideoPost />
                     </Route>
-                    <Route path="/VideoDetails">
+                    <Route path="/VideoDetails/:videoId">
                       <VideoDetails />
                     </Route>
                     <Route path="/UsedCar/:carId">
@@ -136,19 +136,19 @@ const App = () => {
                     <Route path="/FAQ">
                       <FAQ />
                     </Route>
-                    <Route path="/Blog">
+                    <Route exact path="/Blog">
                       <Blog />
                     </Route>
                     <Route path="/BlogPost">
                       <BlogPost />
                     </Route>
-                    <Route path="/BlogDetails">
+                    <Route path="/BlogDetails/:blogId">
                       <BlogDetails />
                     </Route>
                     <Route path="/AutoStore">
                       <AutoStore />
                     </Route>
-                    <Route path="/CarPartDetails">
+                    <Route path="/CarPartDetails/:carId">
                       <CarPartDetail />
                     </Route>
                     <Route path="/Cart">

@@ -1,11 +1,46 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-import NumericInput from 'react-numeric-input';
-
+import NumericInput from "react-numeric-input";
+import CartContext from "../reducer/CartContext";
 
 const CarPartDetail = () => {
+  const { cart, setCart } = useContext(CartContext);
+  const [carData, setCarData] = useState({});
+  const [quantity, setQuantity] = useState(1);
+
+  const { carId } = useParams();
+
+  /**
+   * Fetch data from backend
+   */
+  useEffect(() => {
+    fetch(`/car-parts/${carId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (!data.success) {
+          throw new Error(data.error);
+        }
+
+        setCarData(data?.data);
+      })
+      .catch((err) => alert(err.message));
+  }, [carId]);
+
+  /**
+   * Handle add to cart
+   */
+  const handleAddToCart = () => {
+    const newItems = Array(quantity).fill({
+      _id: carData?._id,
+      title: carData?.title,
+      price: carData?.price,
+    });
+    setCart((p) => [...p, ...newItems]);
+  };
+
   return (
     <div id="CarPartDetail">
       <div className="row pt-5">
@@ -13,67 +48,33 @@ const CarPartDetail = () => {
           <div className=" ">
             <div className="row justify-content-center">
               <Carousel infiniteLoop>
-                <div>
-                  <img src="./images/Kia-Sportage.png" alt="asdsasda" />
-
-                  <p className="legend">Lightening Spray Can</p>
-                </div>
-                <div>
-                  <img src="./images/dummy-car.png" alt="asdsasda" />
-
-                  <p className="legend">Lightening Spray Can</p>
-                </div>
-                <div>
-                  <img src="./images/pink-aqua.png" alt="asdsasda" />
-
-                  <p className="legend">Lightening Spray Can</p>
-                </div>
-                <div>
-                  <img src="./images/Suzukia-specia.png" alt="asdsasda" />
-
-                  <p className="legend">Lightening Spray Can</p>
-                </div>
-                <div>
-                  <img src="./images/pink-aqua.png" alt="asdsasda" />
-
-                  <p className="legend">Lightening Spray Can</p>
-                </div>
-                <div>
-                  <img src="./images/Suzukia-specia.png" alt="asdsasda" />
-
-                  <p className="legend">Lightening Spray Can</p>
-                </div>
-                <div>
-                  <img src="./images/Suzukia-specia.png" alt="asdsasda" />
-
-                  <p className="legend">Lightening Spray Can</p>
-                </div>
-                <div>
-                  <img src="./images/Suzukia-specia.png" alt="asdsasda" />
-
-                  <p className="legend">Lightening Spray Can</p>
-                </div>
+                {carData?.images?.map((image, i) => (
+                  <div key={i}>
+                    <img src={image} alt="asdsasda" />
+                    <p className="legend">{carData?.title}</p>
+                  </div>
+                ))}
               </Carousel>
             </div>
           </div>
 
           <div className="CarDetailCard col-6 offset-3 pb-1 ">
-            <h2 className="mb-0">Lightening Spray Can</h2> {/*  Title*/}
+            <h2 className="mb-0">{carData?.title}</h2> {/*  Title*/}
             <i className="fas fa-map-marker-alt mr-2  "></i>
             <Link to="#" className="city">
-              Karachi
+              {carData?.city}
             </Link>
-            <h4 className=" mt-3 mb-2">PKR 1,500</h4>
+            <h4 className=" mt-3 mb-2">PKR {carData?.price}</h4>
             <div>
               <Link className="mb-3" to="#">
-                Rahul Gianchandani
+                {carData?.name}
               </Link>{" "}
               {/*  Seller Name*/}
             </div>
             <div className="numBox col-5">
               <i className=" fas fa-phone-alt mr-3"></i>
               {/*  <span>View Number</span>   if user is Not logged in, dont show number */}
-              <span>03468765433</span>{" "}
+              <span>{carData?.phone}</span>{" "}
               {/* if user is logged in, show him number */}
             </div>
             <div className="col-4 offset-9">
@@ -89,23 +90,29 @@ const CarPartDetail = () => {
                 <p> Category</p>
               </div>
               <div className="col-6 details position-relative mb-1">
-                <Link to="#">Car Parts</Link>
+                <Link to="#">{carData?.category}</Link>
               </div>
             </div>
 
             <div className="mt-3 remarks">
               <h4 className="font-weight-bold">Seller's Remarks</h4>{" "}
               {/*Ad Description */}
-              <p className="mb-0">This Spray can turn your Car into Gold</p>
+              <p className="mb-0">{carData?.description}</p>
             </div>
           </div>
         </div>
         <div className="col-3">
-         
           <div>
             <Link to="#">
-            <NumericInput value={1} size={1} />
-              <i class="fa-solid fa-cart-arrow-down"></i> Add to Cart
+              <NumericInput
+                value={quantity}
+                size={10}
+                onChange={(e) => setQuantity(e)}
+              />
+              <button onClick={handleAddToCart}>
+                {" "}
+                <i class="fa-solid fa-cart-arrow-down"></i> Add to Cart
+              </button>
             </Link>
           </div>
         </div>

@@ -36,6 +36,7 @@ app.use(require("./router/car"));
 app.use(require("./router/user"));
 app.use(require("./router/cartCheckout"));
 app.use(require("./router/video"));
+app.use(require("./router/blog"));
 
 const PORT = process.env.PORT;
 

@@ -64,6 +64,7 @@ const VideoPost = () => {
             setUrl("");
             setPhone("");
             setEmail("");
+            imageElement.current = null;
           });
       });
   };

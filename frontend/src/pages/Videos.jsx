@@ -89,13 +89,13 @@ const Videos = () => {
               id="moreVideos"
               className="row flex-nowrap col-12 col-lg-10 px-0  mt-5"
             >
-              {videoList.map((v) => (
-                <a href={v?.videoUrl} className="px-2 py-3">
+              {videoList?.map((v) => (
+                <Link to={`/videoDetails/${v?._id}`} className="px-2 py-3">
                   <div className="thumbnailBox">
                     <div id="imgBox" className="position-relative">
                       <i className="far fa-play-circle" />
                       <img
-                        src={v?.thumbnail[0]}
+                        src={`${v.thumbnail.length > 0 ? v.thumbnail[0] : ""}`}
                         height="100%"
                         width="100%"
                         alt="post malone circles video thumbnail"
@@ -105,7 +105,7 @@ const Videos = () => {
                       <p className="mb-0">{v?.title}</p>
                     </div>
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -117,167 +117,27 @@ const Videos = () => {
         <div className="container">
           <h1 className="text-center position-relative mb-5">More Videos</h1>
           <div id="moreVideos" className="row mx-1 py-5">
-            <Link to="#" className="col-sm-6 col-md-4 mb-5 mb-md-5 mb-lg-0 ">
-              <div className="thumbnailBox">
-                <div id="imgBox" className="position-relative">
-                  <i className="far fa-play-circle" />
-                  <img
-                    src="./images/car-thumbnails/thumbnail.jpg"
-                    height="100%"
-                    width="100%"
-                    alt="post malone circles video thumbnail"
-                  />
+            {videoList?.map((v) => (
+              <Link
+                to={`/videoDetails/${v?._id}`}
+                className="col-sm-6 col-md-4 mb-5 mb-md-5 mb-lg-0 "
+              >
+                <div className="thumbnailBox">
+                  <div id="imgBox" className="position-relative">
+                    <i className="far fa-play-circle" />
+                    <img
+                      src={v?.thumbnail[0]}
+                      height="100%"
+                      width="100%"
+                      alt="post malone circles video thumbnail"
+                    />
+                  </div>
+                  <div className="thumbTitle  p-3">
+                    <p className="mb-0">{v?.title}</p>
+                  </div>
                 </div>
-                <div className="thumbTitle  p-3">
-                  <p className="mb-0">
-                    Street Racing Car Crashes | CRASHdriven
-                  </p>
-                </div>
-              </div>
-            </Link>
-            <Link to="#" className="col-sm-6 col-md-4 mb-5 mb-md-0">
-              <div className="thumbnailBox">
-                <div id="imgBox" className="position-relative">
-                  <i className="far fa-play-circle" />
-                  <img
-                    src="./images/car-thumbnails/thumbnail (1).jpg"
-                    height="100%"
-                    width="100%"
-                    alt="post malone circles video thumbnail"
-                  />
-                </div>
-                <div className="thumbTitle  p-3">
-                  <p className="mb-0">
-                    Yellow Bumblebee Transformer - Car Toys Kid #2
-                  </p>
-                </div>
-              </div>
-            </Link>
-            <Link to="#" className="col-sm-6 col-md-4 mb-5  mb-md-5 mb-lg-0">
-              <div className="thumbnailBox">
-                <div id="imgBox" className="position-relative">
-                  <i className="far fa-play-circle" />
-                  <img
-                    src="./images/car-thumbnails/thumbnail (2).jpg"
-                    height="100%"
-                    width="100%"
-                    alt="post malone circles video thumbnail"
-                  />
-                </div>
-                <div className="thumbTitle  p-3">
-                  <p className="mb-0">Top Transformers Cars In Real Life</p>
-                </div>
-              </div>
-            </Link>
-            <Link to="#" className="col-sm-6 col-md-4 mb-5  my-lg-5">
-              <div className="thumbnailBox">
-                <div id="imgBox" className="position-relative">
-                  <i className="far fa-play-circle" />
-                  <img
-                    src="./images/car-thumbnails/thumbnail (3).jpg"
-                    height="100%"
-                    width="100%"
-                    alt="post malone circles video thumbnail"
-                  />
-                </div>
-                <div className="thumbTitle  p-3">
-                  <p className="mb-0">
-                    Toys Learning Name and Sounds, Fire Truck Toy
-                  </p>
-                </div>
-              </div>
-            </Link>
-            <Link
-              to="#"
-              className="col-sm-6 col-md-4 mb-5 mb-md-5 my-lg-5 mb-lg-0"
-            >
-              <div className="thumbnailBox">
-                <div id="imgBox" className="position-relative">
-                  <i className="far fa-play-circle" />
-                  <img
-                    src="./images/car-thumbnails/thumbnail (4).jpg"
-                    height="100%"
-                    width="100%"
-                    alt="post malone circles video thumbnail"
-                  />
-                </div>
-                <div className="thumbTitle  p-3">
-                  <p className="mb-0">Vlad change wheels Nikita toy car</p>
-                </div>
-              </div>
-            </Link>
-            <Link to="#" className="col-sm-6 col-md-4 mb-5 my-lg-5">
-              <div className="thumbnailBox">
-                <div id="imgBox" className="position-relative">
-                  <i className="far fa-play-circle" />
-                  <img
-                    src="./images/car-thumbnails/thumbnail (5).jpg"
-                    height="100%"
-                    width="100%"
-                    alt="post malone circles video thumbnail"
-                  />
-                </div>
-                <div className="thumbTitle  p-3">
-                  <p className="mb-0">
-                    Cars vs Suspension – BeamNG Drive | CrashBoomPunk
-                  </p>
-                </div>
-              </div>
-            </Link>
-            <Link to="#" className="col-sm-6 col-md-4 mb-5 mb-md-5 mb-lg-0">
-              <div className="thumbnailBox">
-                <div id="imgBox" className="position-relative">
-                  <i className="far fa-play-circle" />
-                  <img
-                    src="./images/car-thumbnails/thumbnail (6).jpg"
-                    height="100%"
-                    width="100%"
-                    alt="post malone circles video thumbnail"
-                  />
-                </div>
-                <div className="thumbTitle  p-3">
-                  <p className="mb-0">
-                    Tokyo Drift - Teriyaki Boyz (PedroDJDaddy Remix){" "}
-                  </p>
-                </div>
-              </div>
-            </Link>
-            <Link to="#" className="col-sm-6 col-md-4 mb-5 mb-md-0">
-              <div className="thumbnailBox">
-                <div id="imgBox" className="position-relative">
-                  <i className="far fa-play-circle" />
-                  <img
-                    src="./images/car-thumbnails/thumbnail (7).jpg"
-                    height="100%"
-                    width="100%"
-                    alt="post malone circles video thumbnail"
-                  />
-                </div>
-                <div className="thumbTitle  p-3">
-                  <p className="mb-0">
-                    Dump Truck Transport | Car Videos | MariAndToys
-                  </p>
-                </div>
-              </div>
-            </Link>
-            <Link to="#" className="col-sm-6 col-md-4 mb-5 mb-md-5 mb-lg-0">
-              <div className="thumbnailBox">
-                <div id="imgBox" className="position-relative">
-                  <i className="far fa-play-circle" />
-                  <img
-                    src="./images/car-thumbnails/thumbnail (8).jpg"
-                    height="100%"
-                    width="100%"
-                    alt="post malone circles video thumbnail"
-                  />
-                </div>
-                <div className="thumbTitle  p-3">
-                  <p className="mb-0">
-                    Fine Toys Construction Vehicles Looking for underground car
-                  </p>
-                </div>
-              </div>
-            </Link>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

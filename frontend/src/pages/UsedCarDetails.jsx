@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-
+import { DiscussionEmbed } from "disqus-react";
 
 import { UserContext } from "../App";
 
@@ -29,14 +29,21 @@ const UsedCarDetails = () => {
       });
   }, [carId]);
 
+  const disqusShortname = "http-loalhost";
+  const disqusConfig = {
+    url: `http://localhost:3000/UsedCar/${carId}`,
+    identifier: carId,
+    title: "Comments",
+  };
+
   // Fetch car biddings by carId
   useEffect(() => {
     fetch(`/bidding/${carId}`)
       .then((res) => res.json())
       .then(({ data, success }) => {
         setBidding(data);
-        console.log(state)
-        console.log(data)
+        console.log(state);
+        console.log(data);
         if (data.length < 1) {
           setIsNewBid(true);
         }
@@ -55,18 +62,18 @@ const UsedCarDetails = () => {
   const handleSubmitBid = (e) => {
     e.preventDefault(); // Prevent form submit
 
-      // Bid update
-      fetch(`/update-bidding/${carId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ amount }),
-      })
-        .then((res) => res.json())
-        .then(({ data }) => {
-          setAmount("");
-           setBidding(data);
+    // Bid update
+    fetch(`/update-bidding/${carId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ amount }),
+    })
+      .then((res) => res.json())
+      .then(({ data }) => {
+        setAmount("");
+        setBidding(data);
         if (data.length < 1) {
           setIsNewBid(true);
         }
@@ -77,11 +84,11 @@ const UsedCarDetails = () => {
           } else {
             setIsNewBid(true);
           }
-        }        });
+        }
+      });
   };
 
   return (
-    
     <div id="UsedCarDetails">
       <div className="container">
         <div className="row pt-5">
@@ -101,27 +108,26 @@ const UsedCarDetails = () => {
             </div>
 
             <div className="CarDetailCard col-9 offset-1 pb-1 ">
-        <h2 className="mb-0">
-          {carDetails?.year} {carDetails?.carBrand} {carDetails?.model}
-        </h2>
-        <i className="fas fa-map-marker-alt mr-2  "></i>
-        <Link to="#" className="city">
-          {carDetails?.registeredIn}
-        </Link>
-        <h4 className=" mt-3 mb-5">PKR {carDetails?.price} lacs</h4>
-        <div className="numBox col-5">
-          <i className=" fas fa-phone-alt mr-3"></i>
-          {/*  <span>View Number</span>   if user is Not logged in, dont show number */}
-          <span>{carDetails.phone}</span>{" "}
-          {/* if user is logged in, show him number */}
-        </div>
+              <h2 className="mb-0">
+                {carDetails?.year} {carDetails?.carBrand} {carDetails?.model}
+              </h2>
+              <i className="fas fa-map-marker-alt mr-2  "></i>
+              <Link to="#" className="city">
+                {carDetails?.registeredIn}
+              </Link>
+              <h4 className=" mt-3 mb-5">PKR {carDetails?.price} lacs</h4>
+              <div className="numBox col-5">
+                <i className=" fas fa-phone-alt mr-3"></i>
+                {/*  <span>View Number</span>   if user is Not logged in, dont show number */}
+                <span>{carDetails.phone}</span>{" "}
+                {/* if user is logged in, show him number */}
+              </div>
 
-        <div className="col-3 offset-9">
-          <i className="fas fa-flag mr-2"></i>
-          <Link to="#">Report Ad</Link>
-        </div>
-        
-      </div>
+              <div className="col-3 offset-9">
+                <i className="fas fa-flag mr-2"></i>
+                <Link to="#">Report Ad</Link>
+              </div>
+            </div>
 
             <div className="CarGeneralCard col-6 offset-3 mt-2 ">
               <h4 className="font-weight-bold mb-3">General Details</h4>
@@ -140,12 +146,13 @@ const UsedCarDetails = () => {
                 </div>
                 <div className="col-6 details position-relative mb-1">
                   <p>
-                    <i className="mr-3 fa fa-user-alt"></i> { carDetails?.owener}
+                    <i className="mr-3 fa fa-user-alt"></i> {carDetails?.owener}
                   </p>
                 </div>
                 <div className="col-6 details position-relative mb-1">
                   <p>
-                    <i className="mr-3 fas fa-cog"></i> {carDetails?.transmission}
+                    <i className="mr-3 fas fa-cog"></i>{" "}
+                    {carDetails?.transmission}
                   </p>
                 </div>
                 <div className="col-6 details position-relative mb-1">
@@ -167,7 +174,8 @@ const UsedCarDetails = () => {
                 </div>
                 <div className="col-6 details position-relative mb-1">
                   <p>
-                    <i class="mr-3 fa-solid fa fa-car-side"></i> {carDetails?.style}
+                    <i class="mr-3 fa-solid fa fa-car-side"></i>{" "}
+                    {carDetails?.style}
                   </p>
                 </div>
               </div>
@@ -177,6 +185,13 @@ const UsedCarDetails = () => {
                 {/*if seller wants to write comment or say something  */}
                 {carDetails?.description}
               </div>
+
+              <DiscussionEmbed
+                shortname={disqusShortname}
+                config={disqusConfig}
+              >
+                Comments
+              </DiscussionEmbed>
             </div>
           </div>
           <div className="col3 bidPlace ">
@@ -210,8 +225,7 @@ const UsedCarDetails = () => {
               <div>
                 <h6 className="mb-4">UserProfile</h6>
                 {/* Id of user profile with name, click on it to go see user id*/}
-                {bidding &&
-                  bidding.map(({user}) => <p>{user?.firstname}</p>)}
+                {bidding && bidding.map(({ user }) => <p>{user?.firstname}</p>)}
               </div>
 
               <div>
@@ -225,8 +239,6 @@ const UsedCarDetails = () => {
           </div>
         </div>
       </div>
-
-      
     </div>
   );
 };
