@@ -2,7 +2,7 @@ const router = require("express").Router();
 const Car = require("../model/Car");
 const Bidding = require("../model/Bidding");
 const Authenticate = require("../middleware/authenticate");
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 // const {SENDGRID_API,EMAIL} = require('../config/keys');
@@ -18,7 +18,6 @@ const transporter = nodemailer.createTransport(
     },
   })
 );
-
 
 /**
  * Create/post and Ad
@@ -44,6 +43,7 @@ router.post("/create-ad", Authenticate, async (req, res) => {
     transmission,
     owener,
     engineCC,
+    province,
   } = req.body;
 
   try {
@@ -80,6 +80,13 @@ router.post("/create-ad", Authenticate, async (req, res) => {
         success: false,
         statusCode: 400,
         error: "Please fillup the required filed style",
+      });
+    }
+    if (!province) {
+      return res.status(400).json({
+        success: false,
+        statusCode: 400,
+        error: "Please fillup the required filed province",
       });
     }
     if (!registeredIn) {
@@ -204,6 +211,7 @@ router.post("/create-ad", Authenticate, async (req, res) => {
       name,
       phone,
       email,
+      province,
     });
 
     await car.save();
@@ -224,7 +232,9 @@ router.post("/create-ad", Authenticate, async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ success: false, statusCode: 500, error: error.message });
+    res
+      .status(500)
+      .json({ success: false, statusCode: 500, error: error.message });
   }
 });
 

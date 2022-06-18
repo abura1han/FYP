@@ -10,6 +10,7 @@ router.get("/search", async (req, res) => {
     mileage_end,
     carBrand,
     registeredIn,
+    province,
     owener,
     category,
     fuel,
@@ -23,39 +24,41 @@ router.get("/search", async (req, res) => {
     year_end,
   } = req.query;
   try {
-    // Find cars by req.query
-    // const cars = await Car.find({
-    //   price: { $lte: Number(upper_price ? upper_price : 9999999999999), $gte: Number(lower_price ? lower_price : 0) },
-    //   year: { $lte: Number(year_end ? year_end : 99999), $gte: Number(year_start ? year_start : 0) },
-    //   mileage: { $lte: Number(mileage_end ? mileage_end : 9999999999999999), $gte: Number(mileage_start ? mileage_start : 0) },
-    //   registeredIn: registeredIn
-    //     ? { $in: registeredIn.split(",") }
-    //     : { $regex: "" },
-    //   type: { $regex: type ? type : "" },
-    //   style: { $regex: style ? style : "" },
-    //   exteriorColor: { $regex: exteriorColor ? exteriorColor : "" },
-    //   isPending: false,
-    // }).sort({ updatedAt: sortBy ? Number(sortBy) : 1 });
-    // console.log(req.query)
-
     const cars = await Car.find({
-      price: { $lte: Number(upper_price ? upper_price : 9999999999999), $gte: Number(lower_price ? lower_price : 0) },
-      engineCC: { $lte: Number(upper_engineCC ? upper_engineCC : 9999999999999), $gte: Number(lower_engineCC ? lower_engineCC : 0) },
-      year: { $lte: parseInt(year_end || 99999), $gte: parseInt(year_start || 0) },
-      mileage: { $lte: parseInt(mileage_end || 9999999999999999), $gte: parseInt(mileage_start || 0) },
+      price: {
+        $lte: Number(upper_price ? upper_price : 9999999999999),
+        $gte: Number(lower_price ? lower_price : 0),
+      },
+      engineCC: {
+        $lte: Number(upper_engineCC ? upper_engineCC : 9999999999999),
+        $gte: Number(lower_engineCC ? lower_engineCC : 0),
+      },
+      year: {
+        $lte: parseInt(year_end || 99999),
+        $gte: parseInt(year_start || 0),
+      },
+      mileage: {
+        $lte: parseInt(mileage_end || 9999999999999999),
+        $gte: parseInt(mileage_start || 0),
+      },
       carBrand: carBrand ? { $in: carBrand.split(",") } : { $regex: "" },
       fuel: fuel ? { $in: fuel.split(",") } : { $regex: "" },
-      registeredIn: registeredIn ? { $in: registeredIn.split(",") } : { $regex: "" },
-      type: { $regex: type ? type : "", '$options': 'i' },
-      style: { $regex: style ? style : "", '$options': 'i' },
-      exteriorColor: { $regex: exteriorColor || "", '$options': 'i' },
-      transmission: transmission ? { $in: transmission.split(",") } : { $regex: "" },
+      registeredIn: registeredIn
+        ? { $in: registeredIn.split(",") }
+        : { $regex: "" },
+      type: { $regex: type ? type : "", $options: "i" },
+      province: { $regex: province ? province : "", $options: "i" },
+      style: { $regex: style ? style : "", $options: "i" },
+      exteriorColor: { $regex: exteriorColor || "", $options: "i" },
+      transmission: transmission
+        ? { $in: transmission.split(",") }
+        : { $regex: "" },
       owener: owener ? { $in: owener.split(",") } : { $regex: "" },
-      category: { $regex: category ? category : "", '$options': 'i' },
+      category: { $regex: category ? category : "", $options: "i" },
       isPending: false,
-    }).sort({updatedAt: sortBy ? parseInt(sortBy) : 1})
-      
-      res.status(200).json({ success: true, statusCode: 200, data: cars });
+    }).sort({ updatedAt: sortBy ? parseInt(sortBy) : 1 });
+
+    res.status(200).json({ success: true, statusCode: 200, data: cars });
   } catch (error) {
     console.error(error);
     res

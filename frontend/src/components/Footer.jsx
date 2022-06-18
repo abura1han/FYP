@@ -47,30 +47,26 @@ class Footer extends React.Component {
                   <h5 className="text-white pb-5">Cars by Province</h5>
                   <ul className="px-0 text-secondary">
                     <li className="list-unstyled text-decoration-none mb-2">
-                      <Link to="/search?registeredIn=Punjab">
-                        Cars in Punjab
-                      </Link>
+                      <a href="/search?province=Punjab">Cars in Punjab</a>
                     </li>
                     <li className="list-unstyled text-decoration-none mb-2">
-                      <Link to="/search?registeredIn=Sindh">Cars in Sindh</Link>
+                      <a href="/search?province=Sindh">Cars in Sindh</a>
                     </li>
                     <li className="list-unstyled text-decoration-none mb-2">
-                      <Link to="/search?registeredIn=KPK">Cars in KPK</Link>
+                      <a href="/search?province=KPK">Cars in KPK</a>
                     </li>
                     <li className="list-unstyled text-decoration-none mb-2">
-                      <Link to="/search?registeredIn=Balochistan">
+                      <a href="/search?province=Balochistan">
                         Cars in Balochistan
-                      </Link>
+                      </a>
                     </li>
                     <li className="list-unstyled text-decoration-none mb-2">
-                      <Link to="/search?registeredIn=Kashmir">
-                        Azad Kashmir
-                      </Link>
+                      <a href="/search?province=Kashmir">Azad Kashmir</a>
                     </li>
                     <li className="list-unstyled text-decoration-none mb-2">
-                      <Link to="/search?registeredIn= Federally Administered Tribal Areas">
+                      <a href="/search?province=Federally Administered Tribal Areas">
                         Federally Administered Tribal Areas
-                      </Link>
+                      </a>
                     </li>
                   </ul>
                 </section>

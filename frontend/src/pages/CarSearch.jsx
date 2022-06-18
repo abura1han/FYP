@@ -13,6 +13,7 @@ const CarSearch = () => {
 
   const [style, setStyle] = useState("");
   const [type, setType] = useState("");
+  const [province, setProvince] = useState("");
   const [carBrand, setCarBrand] = useState("");
   const [carCity, setCarCity] = useState("");
   const [mileage, setMileage] = useState({ start: 0, end: 500000 });
@@ -20,9 +21,9 @@ const CarSearch = () => {
   const [exteriorColor, setExteriorColor] = useState("");
   const [sortBy, setSortBy] = useState(-1);
   const [year, setYear] = useState({ start: 2000, end: 2022 });
-  const [carFuel, setCarFuel] = useState("")
-  const [carTransmission, setCarTransmission] = useState("")
-  const [carOwener, setCarOwener] = useState("")
+  const [carFuel, setCarFuel] = useState("");
+  const [carTransmission, setCarTransmission] = useState("");
+  const [carOwener, setCarOwener] = useState("");
   const [category, setCategory] = useState("");
 
   const [carList, setCarList] = useState([]);
@@ -48,7 +49,7 @@ const CarSearch = () => {
 
   // Handle car fuel
   const handleSelectCarFuel = (fuel) => {
-    console.log(fuel)
+    console.log(fuel);
     if (carFuel.includes(fuel)) {
       return setCarFuel(carFuel.filter((b) => b !== fuel));
     }
@@ -59,7 +60,9 @@ const CarSearch = () => {
   // Handle car transmission
   const handleSelectCarTransmission = (transmission) => {
     if (carTransmission.includes(transmission)) {
-      return setCarTransmission(carTransmission.filter((b) => b !== transmission));
+      return setCarTransmission(
+        carTransmission.filter((b) => b !== transmission)
+      );
     }
 
     setCarTransmission((prevState) => [...prevState, transmission]);
@@ -90,7 +93,6 @@ const CarSearch = () => {
     }
   }, [isQuerySearch]);
 
- 
   // Fetch filtered cars from server
   useEffect(() => {
     if (!isQuerySearch.current) {
@@ -101,7 +103,11 @@ const CarSearch = () => {
           year.start
         }&year_end=${year.end}&mileage_start=${mileage.start}&mileage_end=${
           mileage.end
-        }&exteriorColor=${exteriorColor}&sortBy=${sortBy}&transmission=${carTransmission}&fuel=${carFuel}&owener=${carOwener}&upper_engineCC=${engineCC.upper}&lower_engineCC=${engineCC.lower}&category=${category}
+        }&exteriorColor=${exteriorColor}&sortBy=${sortBy}&transmission=${carTransmission}&fuel=${carFuel}&owener=${carOwener}&upper_engineCC=${
+          engineCC.upper
+        }&lower_engineCC=${
+          engineCC.lower
+        }&category=${category}&province=${province}
         `)
           .then((res) => res.json())
           .then(({ data }) => {
@@ -129,6 +135,7 @@ const CarSearch = () => {
     sortBy,
     carCity,
     year,
+    province,
   ]);
 
   return (
@@ -935,7 +942,7 @@ const CarSearch = () => {
                           type="checkbox"
                           value="Diesel"
                           id="Diesel"
-                           onChange={(e) => handleSelectCarFuel("Diesel")}
+                          onChange={(e) => handleSelectCarFuel("Diesel")}
                         />
                         <label class="form-check-label" htmlFor="Diesel">
                           Diesel
@@ -964,7 +971,10 @@ const CarSearch = () => {
                     aria-labelledby=""
                   >
                     <div className="card-body row justify-content-between">
-                      <div className="text-center carbox mb-2 col-4  " onClick={() => setCategory("Small")}>
+                      <div
+                        className="text-center carbox mb-2 col-4  "
+                        onClick={() => setCategory("Small")}
+                      >
                         <img
                           src="./images/whitecars/smallcar.jpg"
                           alt="small car"
@@ -973,7 +983,10 @@ const CarSearch = () => {
                         />
                         <p className="mb-0 carName">Small Cars</p>
                       </div>
-                      <div className="text-center carbox mb-2 col-4   " onClick={() => setCategory("Midsize")}>
+                      <div
+                        className="text-center carbox mb-2 col-4   "
+                        onClick={() => setCategory("Midsize")}
+                      >
                         <img
                           src="./images/whitecars/MidsizeCars.jpg"
                           alt="midsize car"
@@ -982,7 +995,10 @@ const CarSearch = () => {
                         />
                         <p className="mb-0 carName">Midsize Cars</p>
                       </div>
-                      <div className="text-center carbox mb-2 col-4   " onClick={() => setCategory("Large")}>
+                      <div
+                        className="text-center carbox mb-2 col-4   "
+                        onClick={() => setCategory("Large")}
+                      >
                         <img
                           src="./images/whitecars/LargeCars.jpg"
                           alt="large car"
@@ -992,7 +1008,10 @@ const CarSearch = () => {
                         <p className="mb-0 carName">Large Cars</p>
                       </div>
 
-                      <div className="text-center carbox mb-2 col-4  " onClick={() => setCategory("SUVs")}>
+                      <div
+                        className="text-center carbox mb-2 col-4  "
+                        onClick={() => setCategory("SUVs")}
+                      >
                         <img
                           src="./images/whitecars/SUVs.jpg"
                           alt="SUVs car"
@@ -1002,7 +1021,10 @@ const CarSearch = () => {
                         <p className="mb-0 carName">SUVs</p>
                       </div>
 
-                      <div className="text-center carbox mb-2 col-4  " onClick={() => setCategory("Crossovers")}>
+                      <div
+                        className="text-center carbox mb-2 col-4  "
+                        onClick={() => setCategory("Crossovers")}
+                      >
                         <img
                           src="./images/whitecars/Crossovers.jpg"
                           alt="Crossovers car"
@@ -1012,7 +1034,10 @@ const CarSearch = () => {
                         <p className="mb-0 carName">Crossovers</p>
                       </div>
 
-                      <div className="text-center carbox mb-2 col-4  " onClick={() => setCategory("Hybrids")}>
+                      <div
+                        className="text-center carbox mb-2 col-4  "
+                        onClick={() => setCategory("Hybrids")}
+                      >
                         <img
                           src="./images/whitecars/Hybrids.jpg"
                           alt="Hybrid car"
@@ -1022,7 +1047,10 @@ const CarSearch = () => {
                         <p className="mb-0 carName">Hybrids</p>
                       </div>
 
-                      <div className="text-center carbox mb-2 col-4   " onClick={() => setCategory("Trucks")}>
+                      <div
+                        className="text-center carbox mb-2 col-4   "
+                        onClick={() => setCategory("Trucks")}
+                      >
                         <img
                           src="./images/whitecars/Trucks.jpg"
                           alt="truck car"
@@ -1032,7 +1060,10 @@ const CarSearch = () => {
                         <p className="mb-0 carName">Trucks</p>
                       </div>
 
-                      <div className="text-center carbox mb-2 col-4   " onClick={() => setCategory("Luxury")}>
+                      <div
+                        className="text-center carbox mb-2 col-4   "
+                        onClick={() => setCategory("Luxury")}
+                      >
                         <img
                           src="./images/whitecars/luxury.jpg"
                           alt="Luxury car"
@@ -1042,7 +1073,10 @@ const CarSearch = () => {
                         <p className="mb-0 carName">Luxury</p>
                       </div>
 
-                      <div className="text-center carbox mb-2 col-4  " onClick={() => setCategory("Sports")}>
+                      <div
+                        className="text-center carbox mb-2 col-4  "
+                        onClick={() => setCategory("Sports")}
+                      >
                         <img
                           src="./images/whitecars/sportscar.jpg"
                           alt="Sport car"
@@ -1052,7 +1086,10 @@ const CarSearch = () => {
                         <p className="mb-0 carName">Sports Cars</p>
                       </div>
 
-                      <div className="text-center carbox mb-2 col-4   " onClick={() => setCategory("Convertibiles")}>
+                      <div
+                        className="text-center carbox mb-2 col-4   "
+                        onClick={() => setCategory("Convertibiles")}
+                      >
                         <img
                           src="./images/whitecars/convertibles.jpg"
                           alt="Convertible car"
@@ -1062,7 +1099,10 @@ const CarSearch = () => {
                         <p className="mb-0 carName">Convertibiles</p>
                       </div>
 
-                      <div className="text-center carbox mb-2 col-4   " onClick={() => setCategory("Vans")}>
+                      <div
+                        className="text-center carbox mb-2 col-4   "
+                        onClick={() => setCategory("Vans")}
+                      >
                         <img
                           src="./images/whitecars/vans.jpg"
                           alt="Van car"
@@ -1072,7 +1112,10 @@ const CarSearch = () => {
                         <p className="mb-0 carName">Vans</p>
                       </div>
 
-                      <div className="text-center carbox mb-2 col-4  " onClick={() => setCategory("Certified")}>
+                      <div
+                        className="text-center carbox mb-2 col-4  "
+                        onClick={() => setCategory("Certified")}
+                      >
                         <img
                           src="./images/whitecars/Certifiedpreowned.jpg"
                           alt="Certified pre owned car"
@@ -1111,8 +1154,8 @@ const CarSearch = () => {
                           max={2000}
                           step={50}
                           onFinish={(e) =>
-                          setEngineCC({ lower: e.from, upper: e.to })
-                        }
+                            setEngineCC({ lower: e.from, upper: e.to })
+                          }
                         />
                       </div>
                     </div>
@@ -1144,7 +1187,9 @@ const CarSearch = () => {
                           type="checkbox"
                           value="manual"
                           id="Manual"
-                          onChange={(e) => handleSelectCarTransmission("Manual")}
+                          onChange={(e) =>
+                            handleSelectCarTransmission("Manual")
+                          }
                         />
                         <label class="form-check-label" htmlFor="Manual">
                           Manual
@@ -1156,7 +1201,9 @@ const CarSearch = () => {
                           type="checkbox"
                           value="automatic"
                           id="Automatic"
-                          onChange={(e) => handleSelectCarTransmission("Automatic")}
+                          onChange={(e) =>
+                            handleSelectCarTransmission("Automatic")
+                          }
                         />
                         <label class="form-check-label" htmlFor="Automatic">
                           Automatic
@@ -1187,15 +1234,18 @@ const CarSearch = () => {
                     <div className="card-body">
                       <div className="form-group mb-0 ">
                         <label htmlFor="carcolor"></label>
-                        <select onChange={e => setExteriorColor(e.target.value)} className="w-full">
-                          <option value={'White'}>White</option>
-                          <option value={'Black'}>Black</option>
-                          <option value={'Gray'}>Gray</option>
-                          <option value={'Blue'}>Blue</option>
-                          <option value={'Silver'}>Silver</option>
-                          <option value={'Green'}>Green</option>
-                          <option value={'Yellow'}>Yellow</option>
-                          <option value={'Golden'}>Golden</option>
+                        <select
+                          onChange={(e) => setExteriorColor(e.target.value)}
+                          className="w-full"
+                        >
+                          <option value={"White"}>White</option>
+                          <option value={"Black"}>Black</option>
+                          <option value={"Gray"}>Gray</option>
+                          <option value={"Blue"}>Blue</option>
+                          <option value={"Silver"}>Silver</option>
+                          <option value={"Green"}>Green</option>
+                          <option value={"Yellow"}>Yellow</option>
+                          <option value={"Golden"}>Golden</option>
                         </select>
                       </div>
                     </div>
@@ -1277,7 +1327,7 @@ const CarSearch = () => {
                     transmission,
                     engineCC,
                     fuel,
-                    price
+                    price,
                   },
                   i
                 ) => (
@@ -1288,11 +1338,13 @@ const CarSearch = () => {
                   >
                     <div className="mainDiv mb-4 mt-4 row  bg-white p-3">
                       <div className="imgDiv">
-                        {images.length >0 && <img
-                          className="card-img-top"
-                          src={images[0]}
-                          alt="Suzukia-specia Car"
-                        />}
+                        {images.length > 0 && (
+                          <img
+                            className="card-img-top"
+                            src={images[0]}
+                            alt="Suzukia-specia Car"
+                          />
+                        )}
                       </div>
 
                       <div className="detailDiv ml-4">
@@ -1305,14 +1357,24 @@ const CarSearch = () => {
                             {/* if user is logged in, show him number */}
                           </div>
                         </div>
-                        <h5 className="mt-3">PKR { price && price} Lacs</h5>
-                        <p className="text-danger">{registeredIn && registeredIn}</p>
+                        <h5 className="mt-3">PKR {price && price} Lacs</h5>
+                        <p className="text-danger">
+                          {registeredIn && registeredIn}
+                        </p>
                         <span className="mr-3 text-dark">{year && year}</span>
-                        <span className="mr-3 text-dark">{ transmission && transmission}</span>
-                        <span className="mr-3 text-dark">{ engineCC && engineCC} cc</span>
-                        <span className="mr-3 text-dark">{mileage && mileage} K/M</span>
-                        <span className="mr-3 text-dark">{ fuel && fuel}</span>
-                        <span className="mr-3 text-dark">{carBrand && carBrand}</span>
+                        <span className="mr-3 text-dark">
+                          {transmission && transmission}
+                        </span>
+                        <span className="mr-3 text-dark">
+                          {engineCC && engineCC} cc
+                        </span>
+                        <span className="mr-3 text-dark">
+                          {mileage && mileage} K/M
+                        </span>
+                        <span className="mr-3 text-dark">{fuel && fuel}</span>
+                        <span className="mr-3 text-dark">
+                          {carBrand && carBrand}
+                        </span>
                       </div>
                     </div>
                   </Link>

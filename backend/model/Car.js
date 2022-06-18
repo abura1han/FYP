@@ -10,7 +10,16 @@ const carSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
     },
+    isReported: {
+      type: Boolean,
+      default: false,
+    },
     carBrand: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    province: {
       type: String,
       required: true,
       trim: true,

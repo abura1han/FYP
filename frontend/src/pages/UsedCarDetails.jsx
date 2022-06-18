@@ -88,6 +88,18 @@ const UsedCarDetails = () => {
       });
   };
 
+  const handleReportAd = () => {
+    fetch(`/report-car/${carId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) alert("Car reported successfully");
+      });
+  };
+
   return (
     <div id="UsedCarDetails">
       <div className="container">
@@ -123,7 +135,7 @@ const UsedCarDetails = () => {
                 {/* if user is logged in, show him number */}
               </div>
 
-              <div className="col-3 offset-9">
+              <div className="col-3 offset-9" onCanPlay={handleReportAd}>
                 <i className="fas fa-flag mr-2"></i>
                 <Link to="#">Report Ad</Link>
               </div>

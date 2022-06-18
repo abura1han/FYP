@@ -170,6 +170,7 @@ const Advertise = () => {
   const [engineCC, setEngineCC] = useState("");
   const [owener, setOwenter] = useState("");
   const [category, setCategory] = useState("");
+  const [province, setProvince] = useState("");
 
   const imageElement = useRef();
 
@@ -245,6 +246,10 @@ const Advertise = () => {
 
     if (!carBrand) {
       alert("Please select your car brand");
+      return setIsSubmit(false);
+    }
+    if (!province) {
+      alert("Please select your car province");
       return setIsSubmit(false);
     }
     if (!fuel) {
@@ -328,6 +333,7 @@ const Advertise = () => {
             name,
             phone,
             email,
+            province,
           }),
         })
           .then((res) => res.json())
@@ -694,8 +700,8 @@ const Advertise = () => {
                         className="form-control"
                         id="exampleFormControlSelect1"
                         required
-                        onChange={(e) => setYear(e.target.value)}
-                        value={year}
+                        onChange={(e) => setProvince(e.target.value)}
+                        value={province}
                       >
                         <option selected>Select Province</option>
                         <option value={"Sindh"}>Sindh</option>

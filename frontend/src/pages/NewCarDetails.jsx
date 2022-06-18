@@ -26,6 +26,18 @@ const NewCarDetails = () => {
       });
   }, [carId]);
 
+  const handleReportAd = () => {
+    fetch(`/report-car/${carId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) alert("Car reported successfully");
+      });
+  };
+
   return (
     <div id="NewCarDetails">
       <div className="container py-5">
@@ -115,7 +127,9 @@ const NewCarDetails = () => {
             </div>
             <div className="col-6 offset-9">
               <i className="fas fa-flag mr-2"></i>
-              <Link to="#">Report Ad</Link>
+              <Link to="#" onClick={handleReportAd}>
+                Report Ad
+              </Link>
             </div>
             <div>
               <DiscussionEmbed
