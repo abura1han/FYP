@@ -7,7 +7,16 @@ import { PendingCarContext } from "../reducer/carContext";
 const Pending = () => {
   const [newCars, setNewCars] = useState([]);
   const [usedCars, setUsedCars] = useState([]);
-  const { pendingCarCount} = useContext(PendingCarContext)
+  const { pendingCarCount, reportsCarCount, setReportsCarCount } =
+    useContext(PendingCarContext);
+
+  useEffect(() => {
+    fetch("/report-cars")
+      .then((res) => res.json())
+      .then(({ data }) => {
+        setReportsCarCount(data.length);
+      });
+  }, [setReportsCarCount]);
 
   /**
    * Get all cars
@@ -84,8 +93,7 @@ const Pending = () => {
           >
             <h6 className="text-white ">
               <i className="ml-5 mr-3 my-4 fa-solid fa-bell"></i>Pending
-              <span className="pendCount "> { pendingCarCount} </span>
-
+              <span className="pendCount "> {pendingCarCount} </span>
             </h6>
           </NavLink>
           <NavLink
@@ -95,7 +103,7 @@ const Pending = () => {
           >
             <h6 className="text-white ">
               <i className="ml-5 mr-3 my-4 fa-solid fa-flag"></i>Reports
-              <span className="repCount "> </span>
+              <span className="repCount ">{reportsCarCount} </span>
             </h6>
           </NavLink>
           <NavLink
@@ -113,7 +121,7 @@ const Pending = () => {
             to="/Blogpost"
           >
             <h6 className="text-white ">
-          <i class="ml-5 mr-3 my-4 fa-brands fa-blogger"></i>Blog Post
+              <i class="ml-5 mr-3 my-4 fa-brands fa-blogger"></i>Blog Post
             </h6>
           </NavLink>
           <NavLink
@@ -122,7 +130,7 @@ const Pending = () => {
             to="/VideoPost"
           >
             <h6 className="text-white ">
-          <i class="ml-5 mr-2 my-4  fa-solid fa-play"></i>Video Post
+              <i class="ml-5 mr-2 my-4  fa-solid fa-play"></i>Video Post
             </h6>
           </NavLink>
         </div>

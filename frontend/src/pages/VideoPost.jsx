@@ -7,13 +7,22 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import { PendingCarContext } from "../reducer/carContext";
 
 const VideoPost = () => {
-  const { pendingCarCount } = useContext(PendingCarContext);
+  const { pendingCarCount, reportsCarCount, setReportsCarCount } =
+    useContext(PendingCarContext);
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [image, setImage] = useState("");
+
+  useEffect(() => {
+    fetch("/report-cars")
+      .then((res) => res.json())
+      .then(({ data }) => {
+        setReportsCarCount(data.length);
+      });
+  }, [setReportsCarCount]);
 
   const imageElement = useRef();
 
@@ -117,7 +126,7 @@ const VideoPost = () => {
           >
             <h6 className="text-white ">
               <i className="ml-5 mr-3 my-4 fa-solid fa-flag"></i>Reports
-              <span className="repCount "> </span>
+              <span className="repCount ">{reportsCarCount} </span>
             </h6>
           </NavLink>
           <NavLink

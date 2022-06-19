@@ -2,16 +2,28 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { NewCarContext, PendingCarContext, UsedCarContext } from "../reducer/carContext";
+import {
+  NewCarContext,
+  PendingCarContext,
+  UsedCarContext,
+} from "../reducer/carContext";
 
 const AdmProfile = () => {
   const history = useHistory();
   const [userData, setUserData] = useState({});
   const [updateUserData, setUpdateUserData] = useState({});
-  const { usedCarList} = useContext(UsedCarContext)
-  const { newCarList } = useContext(NewCarContext)
-  const { pendingCarCount} = useContext(PendingCarContext)
-  
+  const { usedCarList } = useContext(UsedCarContext);
+  const { newCarList } = useContext(NewCarContext);
+  const { pendingCarCount, reportsCarCount, setReportsCarCount } =
+    useContext(PendingCarContext);
+
+  useEffect(() => {
+    fetch("/report-cars")
+      .then((res) => res.json())
+      .then(({ data }) => {
+        setReportsCarCount(data.length);
+      });
+  }, [setReportsCarCount]);
 
   const callProfilePage = async () => {
     try {
@@ -39,8 +51,8 @@ const AdmProfile = () => {
     }
   };
 
-  console.log(usedCarList)
-  console.log(newCarList)
+  console.log(usedCarList);
+  console.log(newCarList);
 
   //cant use async function inside useEffect
 
@@ -139,7 +151,7 @@ const AdmProfile = () => {
             <h6 className="text-white ">
               <i className="ml-5 mr-3 my-4 fa-solid fa-bell"></i>Pending
             </h6>
-            <span className="pendCount "> { pendingCarCount} </span>
+            <span className="pendCount "> {pendingCarCount} </span>
           </NavLink>
           <NavLink
             activeClassName=" active"
@@ -148,7 +160,7 @@ const AdmProfile = () => {
           >
             <h6 className="text-white ">
               <i className="ml-5 mr-3 my-4 fa-solid fa-flag"></i>Reports
-              <span className="repCount "> </span>
+              <span className="repCount ">{reportsCarCount} </span>
             </h6>
           </NavLink>
           <NavLink
@@ -166,7 +178,7 @@ const AdmProfile = () => {
             to="/Blogpost"
           >
             <h6 className="text-white ">
-          <i class="ml-5 mr-3 my-4 fa-brands fa-blogger"></i>Blog Post
+              <i class="ml-5 mr-3 my-4 fa-brands fa-blogger"></i>Blog Post
             </h6>
           </NavLink>
           <NavLink
@@ -175,7 +187,7 @@ const AdmProfile = () => {
             to="/VideoPost"
           >
             <h6 className="text-white ">
-          <i class="ml-5 mr-2 my-4  fa-solid fa-play"></i>Video Post
+              <i class="ml-5 mr-2 my-4  fa-solid fa-play"></i>Video Post
             </h6>
           </NavLink>
         </div>

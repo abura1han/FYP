@@ -23,13 +23,19 @@ router.get("/users", async (req, res) => {
  */
 router.put("/update-profile", async (req, res) => {
   try {
-    const updateProfile = await User.findByIdAndUpdate(req.body.userId, { $set: req.body }, { new: true });
+    const updateProfile = await User.findByIdAndUpdate(
+      req.body.userId,
+      { $set: req.body },
+      { new: true }
+    );
 
-    res.status(200).json({ success: true, statusCode: 200, data: updateProfile })
+    res
+      .status(200)
+      .json({ success: true, statusCode: 200, data: updateProfile });
   } catch (error) {
     res.status(500).json({ success: false, statusCode: 500, error: error });
   }
-})
+});
 
 /**
  * Delete an user
@@ -48,6 +54,43 @@ router.delete("/delete-user", async (req, res) => {
     const deletedUser = await User.findByIdAndDelete(userId);
 
     res.status(200).json({ success: true, statusCode: 200, data: deletedUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, statusCode: 500, error });
+  }
+});
+
+/**
+ * Admin
+ */
+router.put("/admin-user", async (req, res) => {
+  const { userId } = req.query;
+  const { isAdmin } = req.body;
+  try {
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        statusCode: 400,
+        error: "User id is required to update an user",
+      });
+    }
+
+    const findUser = await User.findById(userId);
+    if (!findUser._doc.isAdmin) {
+      const updateUser = await User.findByIdAndUpdate(userId, {
+        $set: { isAdmin: true },
+      });
+
+      return res
+        .status(200)
+        .json({ success: true, statusCode: 200, data: updateUser });
+    }
+
+    const updateUser = await User.findByIdAndUpdate(userId, {
+      $set: { isAdmin: false },
+    });
+
+    res.status(200).json({ success: true, statusCode: 200, data: updateUser });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, statusCode: 500, error });

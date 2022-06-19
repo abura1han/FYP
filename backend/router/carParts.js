@@ -87,13 +87,13 @@ router.post("/add-car-parts", Authenticate, async (req, res) => {
         error: "Category is required to create a car parts post",
       });
     }
-    if (!subCategory) {
-      res.status(400).json({
-        success: false,
-        statusCode: 400,
-        error: "Sub Category is required to create a car parts post",
-      });
-    }
+    // if (!subCategory) {
+    //   res.status(400).json({
+    //     success: false,
+    //     statusCode: 400,
+    //     error: "Sub Category is required to create a car parts post",
+    //   });
+    // }
     if (!price) {
       res.status(400).json({
         success: false,
@@ -143,7 +143,7 @@ router.post("/add-car-parts", Authenticate, async (req, res) => {
       title,
       city,
       category,
-      subCategory,
+      subCategory: "",
       price,
       description,
       images,

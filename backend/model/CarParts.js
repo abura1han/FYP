@@ -27,7 +27,7 @@ const carPartsSchema = new Schema(
     },
     subCategory: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
     price: {

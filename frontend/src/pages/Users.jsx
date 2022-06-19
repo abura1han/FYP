@@ -6,8 +6,16 @@ import { PendingCarContext } from "../reducer/carContext";
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [adminUsers, setAdminUsers] = useState([]);
-   const { pendingCarCount} = useContext(PendingCarContext)
+  const { pendingCarCount, reportsCarCount, setReportsCarCount } =
+    useContext(PendingCarContext);
 
+  useEffect(() => {
+    fetch("/report-cars")
+      .then((res) => res.json())
+      .then(({ data }) => {
+        setReportsCarCount(data.length);
+      });
+  }, [setReportsCarCount]);
   /**
    * Fetch all users
    */
@@ -44,6 +52,26 @@ const Users = () => {
           setAdminUsers(adminUsers.filter((user) => user._id !== data._id));
         } else {
           setUsers(adminUsers.filter((user) => user._id !== data._id));
+        }
+      });
+  };
+
+  const handleMakeAdmin = (userId) => {
+    fetch(`/admin-user?userId=${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ isAdmin: true }),
+    })
+      .then((res) => res.json())
+      .then(({ success, data, error }) => {
+        if (!success) {
+          alert(error);
+        } else {
+          alert("Operation success");
+          window.location.reload();
         }
       });
   };
@@ -86,7 +114,7 @@ const Users = () => {
           >
             <h6 className="text-white ">
               <i className="ml-5 mr-3 my-4 fa-solid fa-bell"></i>Pending
-              <span className="pendCount "> { pendingCarCount} </span>
+              <span className="pendCount "> {pendingCarCount} </span>
             </h6>
           </NavLink>
           <NavLink
@@ -96,7 +124,7 @@ const Users = () => {
           >
             <h6 className="text-white ">
               <i className="ml-5 mr-3 my-4 fa-solid fa-flag"></i>Reports
-              <span className="repCount "> </span>
+              <span className="repCount "> {reportsCarCount}</span>
             </h6>
           </NavLink>
           <NavLink
@@ -114,7 +142,7 @@ const Users = () => {
             to="/Blogpost"
           >
             <h6 className="text-white ">
-          <i class="ml-5 mr-3 my-4 fa-brands fa-blogger"></i>Blog Post
+              <i class="ml-5 mr-3 my-4 fa-brands fa-blogger"></i>Blog Post
             </h6>
           </NavLink>
           <NavLink
@@ -123,7 +151,7 @@ const Users = () => {
             to="/VideoPost"
           >
             <h6 className="text-white ">
-          <i class="ml-5 mr-2 my-4  fa-solid fa-play"></i>Video Post
+              <i class="ml-5 mr-2 my-4  fa-solid fa-play"></i>Video Post
             </h6>
           </NavLink>
         </div>
@@ -213,9 +241,17 @@ const Users = () => {
                     <h5 className="mb-4">Operation</h5>
                     {users.map(({ _id }, i) => (
                       <div className="mb-4 text-center" key={i}>
-                      
-                        <button className="btn p-0" onClick={() => deleteUser(_id)}>
+                        <button
+                          className="btn p-0"
+                          onClick={() => handleMakeAdmin(_id)}
+                        >
                           <i className="fa-solid mr-4 fa fa-trash  align-top"></i>
+                        </button>
+                        <button
+                          className="btn p-0"
+                          onClick={() => deleteUser(_id)}
+                        >
+                          <i className="fa-solid fa fa-trash  align-top"></i>
                         </button>
                       </div>
                     ))}
@@ -271,7 +307,12 @@ const Users = () => {
                     <h5 className="mb-4">Operation</h5>
                     {adminUsers.map(({ _id }, i) => (
                       <div className="mb-4" key={i}>
-                      
+                        <button
+                          className="btn"
+                          onClick={() => handleMakeAdmin(_id)}
+                        >
+                          <i className="fa fa-shield mr-4"></i>
+                        </button>
                         <button className="btn" onClick={() => deleteUser(_id)}>
                           <i className="fa-solid mr-4 fa fa-trash"></i>
                         </button>

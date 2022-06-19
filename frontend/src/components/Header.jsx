@@ -8,7 +8,8 @@ import CartContext from "../reducer/CartContext";
 
 const Header = () => {
   const { state, dispatch } = useContext(UserContext);
-  const { setPendingCarCount } = useContext(PendingCarContext);
+  const { setPendingCarCount, setReportsCarCount } =
+    useContext(PendingCarContext);
   const { cart } = useContext(CartContext);
 
   useEffect(() => {
@@ -18,6 +19,14 @@ const Header = () => {
         setPendingCarCount(data.length);
       });
   }, [setPendingCarCount]);
+
+  useEffect(() => {
+    fetch("/report-cars")
+      .then((res) => res.json())
+      .then(({ data }) => {
+        setReportsCarCount(data.length);
+      });
+  }, [setReportsCarCount]);
 
   const RenderMenu = () => {
     if (state) {

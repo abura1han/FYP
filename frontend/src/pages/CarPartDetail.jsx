@@ -4,6 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import NumericInput from "react-numeric-input";
 import CartContext from "../reducer/CartContext";
+import { useLayoutEffect } from "react";
 
 const CarPartDetail = () => {
   const { cart, setCart } = useContext(CartContext);
@@ -16,6 +17,20 @@ const CarPartDetail = () => {
    * Fetch data from backend
    */
   useEffect(() => {
+    fetch(`/car-parts/${carId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (!data.success) {
+          throw new Error(data.error);
+        }
+
+        setCarData(data?.data);
+      })
+      .catch((err) => alert(err.message));
+  }, [carId]);
+
+  useLayoutEffect(() => {
     fetch(`/car-parts/${carId}`)
       .then((res) => res.json())
       .then((data) => {
@@ -50,7 +65,7 @@ const CarPartDetail = () => {
               <Carousel infiniteLoop>
                 {carData?.images?.map((image, i) => (
                   <div key={i}>
-                    <img src={image} alt="asdsasda" />
+                    <img src={"/" + image} alt="asdsasda" />
                     <p className="legend">{carData?.title}</p>
                   </div>
                 ))}

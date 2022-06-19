@@ -61,6 +61,7 @@ const App = () => {
   const [usedCarList, setUsedCarList] = useState([]);
   const [newCarList, setNewCarList] = useState([]);
   const [pendingCarCount, setPendingCarCount] = useState([]);
+  const [reportsCarCount, setReportsCarCount] = useState([]);
 
   return (
     <div>
@@ -69,7 +70,12 @@ const App = () => {
           <UsedCarContext.Provider value={{ usedCarList, setUsedCarList }}>
             <NewCarContext.Provider value={{ newCarList, setNewCarList }}>
               <PendingCarContext.Provider
-                value={{ pendingCarCount, setPendingCarCount }}
+                value={{
+                  pendingCarCount,
+                  setPendingCarCount,
+                  reportsCarCount,
+                  setReportsCarCount,
+                }}
               >
                 <Router>
                   <Header />

@@ -19,12 +19,20 @@ const AdvertiseParts = () => {
   const [image, setImage] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
 
+  const { pendingCarCount, reportsCarCount, setReportsCarCount } =
+    useContext(PendingCarContext);
 
-  const { pendingCarCount} = useContext(PendingCarContext)
+  useEffect(() => {
+    fetch("/report-cars")
+      .then((res) => res.json())
+      .then(({ data }) => {
+        setReportsCarCount(data.length);
+      });
+  }, [setReportsCarCount]);
 
   // Image element reference
   const imageElement = useRef();
-  
+
   const { state } = useContext(UserContext);
 
   console.log(title, city, category, subCategory, price);
@@ -189,7 +197,7 @@ const AdvertiseParts = () => {
           >
             <h6 className="text-white ">
               <i className="ml-5 mr-3 my-4 fa-solid fa-bell"></i>Pending
-              <span className="pendCount "> { pendingCarCount} </span>
+              <span className="pendCount "> {pendingCarCount} </span>
             </h6>
           </NavLink>
           <NavLink
@@ -199,7 +207,7 @@ const AdvertiseParts = () => {
           >
             <h6 className="text-white ">
               <i className="ml-5 mr-3 my-4 fa-solid fa-flag"></i>Reports
-              <span className="repCount "> </span>
+              <span className="repCount "> {reportsCarCount}</span>
             </h6>
           </NavLink>
           <NavLink
@@ -217,7 +225,7 @@ const AdvertiseParts = () => {
             to="/Blogpost"
           >
             <h6 className="text-white ">
-          <i class="ml-5 mr-3 my-4 fa-brands fa-blogger"></i>Blog Post
+              <i class="ml-5 mr-3 my-4 fa-brands fa-blogger"></i>Blog Post
             </h6>
           </NavLink>
           <NavLink
@@ -226,7 +234,7 @@ const AdvertiseParts = () => {
             to="/VideoPost"
           >
             <h6 className="text-white ">
-          <i class="ml-5 mr-2 my-4  fa-solid fa-play"></i>Video Post
+              <i class="ml-5 mr-2 my-4  fa-solid fa-play"></i>Video Post
             </h6>
           </NavLink>
         </div>
@@ -326,7 +334,7 @@ const AdvertiseParts = () => {
                               placeholder="Car Filter, Car Parts, Tools, LED Lights"
                               onChange={(e) => setCategory(e.target.value)}
                               value={category}
-                              >
+                            >
                               <option>Car Accessories</option>
                               <option>Car Care</option>
                               <option>Oil &nbsp; Additives</option>
