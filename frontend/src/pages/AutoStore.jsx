@@ -18,6 +18,14 @@ const AutoStore = () => {
 
   console.log(cart);
 
+  const handleFilter = (e) => {
+    fetch(`/car-parts?query={"category": {"$regex": "${e}", "$options": "i"}}`)
+      .then((res) => res.json())
+      .then(({ data }) => {
+        setCarPartsList(data);
+      });
+  };
+
   return (
     <div id="autostore">
       {/* CAR NAVBAR SECTION  */}
@@ -42,19 +50,33 @@ const AutoStore = () => {
                 <h4 className="my-3">Categories</h4>
                 <div className="">
                   <li id="" className="mb-3 position-relative">
-                    <Link to="#" className="main-menu d-block">
+                    <Link
+                      to="#"
+                      onClick={() => handleFilter("Sale Products")}
+                      className="main-menu d-block"
+                    >
                       Sale Products
                     </Link>
                   </li>
 
                   <li className="mb-3 position-relative">
-                    <Link to="#" className="main-menu d-block" data-depth={0}>
+                    <Link
+                      to="#"
+                      onClick={() => handleFilter("Car Accessories")}
+                      className="main-menu d-block"
+                      data-depth={0}
+                    >
                       <i className="fas fa-angle-right" />
                       Car Accessories
                     </Link>
                   </li>
                   <li className="mb-3 position-relative">
-                    <Link to="#" className="main-menu d-block" data-depth={0}>
+                    <Link
+                      to="#"
+                      onClick={() => handleFilter("Car Care")}
+                      className="main-menu d-block"
+                      data-depth={0}
+                    >
                       <i className="fas fa-angle-right" />
                       Car Care
                     </Link>
@@ -64,7 +86,12 @@ const AutoStore = () => {
                     aria-haspopup="true"
                     role="button"
                   >
-                    <Link to="#" className="main-menu d-block" data-depth={0}>
+                    <Link
+                      to="#"
+                      onClick={() => handleFilter("Oil Additives")}
+                      className="main-menu d-block"
+                      data-depth={0}
+                    >
                       <i className="fas fa-angle-right" />
                       Oil &amp; Additives
                     </Link>
@@ -74,7 +101,12 @@ const AutoStore = () => {
                     aria-haspopup="true"
                     role="button"
                   >
-                    <Link to="#" className="main-menu d-block" data-depth={0}>
+                    <Link
+                      to="#"
+                      onClick={() => handleFilter("Car Care Pro")}
+                      className="main-menu d-block"
+                      data-depth={0}
+                    >
                       <i className="fas fa-angle-right" />
                       Car Care Pro
                     </Link>
@@ -84,7 +116,12 @@ const AutoStore = () => {
                     aria-haspopup="true"
                     role="button"
                   >
-                    <Link to="#" className="main-menu d-block" data-depth={0}>
+                    <Link
+                      to="#"
+                      onClick={() => handleFilter("Car Filter")}
+                      className="main-menu d-block"
+                      data-depth={0}
+                    >
                       <i className="fas fa-angle-right" />
                       Car Filter
                     </Link>
@@ -94,7 +131,12 @@ const AutoStore = () => {
                     aria-haspopup="true"
                     role="button"
                   >
-                    <Link to="#" className="main-menu d-block" data-depth={0}>
+                    <Link
+                      to="#"
+                      onClick={() => handleFilter("Car Electronics")}
+                      className="main-menu d-block"
+                      data-depth={0}
+                    >
                       <i className="fas fa-angle-right" />
                       Car Electronics
                     </Link>
@@ -104,7 +146,12 @@ const AutoStore = () => {
                     aria-haspopup="true"
                     role="button"
                   >
-                    <Link to="#" className="main-menu d-block" data-depth={0}>
+                    <Link
+                      to="#"
+                      onClick={() => handleFilter("LED Lights")}
+                      className="main-menu d-block"
+                      data-depth={0}
+                    >
                       <i className="fas fa-angle-right" />
                       LED Lights
                     </Link>
@@ -114,7 +161,12 @@ const AutoStore = () => {
                     aria-haspopup="true"
                     role="button"
                   >
-                    <Link to="#" className="main-menu d-block" data-depth={0}>
+                    <Link
+                      to="#"
+                      onClick={() => handleFilter("Car Parts")}
+                      className="main-menu d-block"
+                      data-depth={0}
+                    >
                       <i className="fas fa-angle-right" />
                       Car Parts
                     </Link>
@@ -124,7 +176,12 @@ const AutoStore = () => {
                     aria-haspopup="true"
                     role="button"
                   >
-                    <Link to="#" className="main-menu d-block" data-depth={0}>
+                    <Link
+                      to="#"
+                      onClick={() => handleFilter("SUV items")}
+                      className="main-menu d-block"
+                      data-depth={0}
+                    >
                       <i className="fas fa-angle-right" />
                       4×4 SUV items
                     </Link>
@@ -134,7 +191,12 @@ const AutoStore = () => {
                     aria-haspopup="true"
                     role="button"
                   >
-                    <Link to="#" className="main-menu d-block" data-depth={0}>
+                    <Link
+                      to="#"
+                      onClick={() => handleFilter("Tyre Wheels")}
+                      className="main-menu d-block"
+                      data-depth={0}
+                    >
                       <i className="fas fa-angle-right" />
                       Tyre &amp; Wheels
                     </Link>
@@ -144,13 +206,23 @@ const AutoStore = () => {
                     aria-haspopup="true"
                     role="button"
                   >
-                    <Link to="#" className="main-menu d-block" data-depth={0}>
+                    <Link
+                      to="#"
+                      onClick={() => handleFilter("Tools")}
+                      className="main-menu d-block"
+                      data-depth={0}
+                    >
                       <i className="fas fa-angle-right" />
                       Tools
                     </Link>
                   </li>
                   <li className="mb-3 position-relative">
-                    <Link to="#" data-depth={0} className="main-menu d-block">
+                    <Link
+                      to="#"
+                      onClick={() => handleFilter("Batteries")}
+                      data-depth={0}
+                      className="main-menu d-block"
+                    >
                       <i className="fas fa-angle-right" />
                       Batteries
                     </Link>

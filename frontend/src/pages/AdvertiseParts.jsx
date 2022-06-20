@@ -335,18 +335,30 @@ const AdvertiseParts = () => {
                               onChange={(e) => setCategory(e.target.value)}
                               value={category}
                             >
-                              <option>Car Accessories</option>
-                              <option>Car Care</option>
-                              <option>Oil &nbsp; Additives</option>
-                              <option>Car Care Pro</option>
-                              <option>Car Filter</option>
-                              <option>Car Electronics</option>
-                              <option>LED Lights</option>
-                              <option>Car Parts</option>
-                              <option>4x4 SUV items</option>
-                              <option>Tyre &nbsp; Wheels</option>
-                              <option>Tools</option>
-                              <option>Batteries</option>
+                              <option value={"Car Accessories"}>
+                                Car Accessories
+                              </option>
+                              <option value={"Car Care"}>Car Care</option>
+                              <option value={"Oil Additives"}>
+                                Oil &nbsp; Additives
+                              </option>
+                              <option value={"Car Care Pro"}>
+                                Car Care Pro
+                              </option>
+                              <option value={"Car Filter"}>Car Filter</option>
+                              <option value={"Car Electronics"}>
+                                Car Electronics
+                              </option>
+                              <option value={"LED Lights"}>LED Lights</option>
+                              <option value={"Car Parts"}>Car Parts</option>
+                              <option value={"4x4 SUV items"}>
+                                4x4 SUV items
+                              </option>
+                              <option value={"Tyre Wheels"}>
+                                Tyre &nbsp; Wheels
+                              </option>
+                              <option value={"Tools"}>Tools</option>
+                              <option value={"Batteries"}>Batteries</option>
                             </select>
                           </div>
                           {/* <div className="form-group mt-3">
