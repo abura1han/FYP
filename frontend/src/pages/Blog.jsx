@@ -74,7 +74,7 @@ const Blog = () => {
                         {e?.title}
                       </h5>
                     </Link>
-                    <p className="card-text mb-4">{e?.content}</p>
+                    <p className="card-text mb-4">{e?.info}</p>
                     <span className="position-absolute news-tag py-1 px-3 text-white rounded">
                       {e?.flareTag}
                     </span>

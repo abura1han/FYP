@@ -21,7 +21,9 @@ const BlogDetails = () => {
       <div className="container">
         <h2 class="text-center my-4 position-relative col-12">Blog</h2>
         <div className="coverPhoto mt-5">
-          <img src="./images/blog-pics/car.jpg" alt="" className="w-75"></img>
+          {blogData?.images?.map((i) => (
+            <img src={"/" + i} alt="" className="w-75"></img>
+          ))}
         </div>
         <div className="flareTag my-3 mx-0 row align-items-center">
           <span class="text-white rounded px-2 ">{blogData?.flareTag}</span>
