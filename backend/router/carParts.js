@@ -1,13 +1,16 @@
 const router = require("express").Router();
 const CarParts = require("../model/CarParts");
 const Authenticate = require("../middleware/authenticate");
+const { json } = require("body-parser");
 
 /**
  * Get all car parts
  */
 router.get("/car-parts", async (req, res) => {
+  const { query } = req.query;
+  const parseQuery = query ? JSON.parse(query) : {};
   try {
-    const carParts = await CarParts.find({});
+    const carParts = await CarParts.find({ ...parseQuery });
     res.status(200).send({ success: true, statusCode: 200, data: carParts });
   } catch (error) {
     res
